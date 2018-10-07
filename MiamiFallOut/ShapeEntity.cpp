@@ -31,7 +31,7 @@ std::string& ShapeEntity::Serialize()
 }
 
 /*
- Character implementation
+ ShapeEntity implementation
  */
 ShapeEntity::ShapeEntity(): IObservable()
 {
@@ -45,6 +45,31 @@ sf::Shape* ShapeEntity::GetShape() const
 void ShapeEntity::SetShape(sf::Shape* shape)
 {
 	_shape = shape;
+}
+
+double ShapeEntity::GetX() const
+{
+	return _x;
+}
+
+double ShapeEntity::GetY() const
+{
+	return _y;
+}
+
+void ShapeEntity::SetX(double x)
+{
+	_x = x;
+}
+
+void ShapeEntity::SetY(double y)
+{
+	_y = y;
+}
+
+void ShapeEntity::SetCoordonates()
+{
+	_shape->setPosition(_x, _y);
 }
 
 ShapeEntity::~ShapeEntity()
