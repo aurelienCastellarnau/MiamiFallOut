@@ -1,5 +1,6 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+#include "stdafx.h"
+#include "IObserver.hh"
 
 class IShapeManager;
 class IShapeManager

@@ -1,6 +1,5 @@
 #pragma once
-#include <list>
-#include <SFML/Graphics.hpp>
+#include "stdafx.h"
 #include "AbstractEntity.hh"
 #include "IObservable.hh"
 #include "IObserver.hh"
@@ -14,9 +13,13 @@ public:
 
 	virtual void Draw(IShapeManager*) override;
 	virtual void Update() override;
+	virtual std::string& Serialize() override;
+
+	// IObservable implementation
+
 	virtual void AddObserver(IObserver* observer) override;
 	virtual void RemoveObserver(IObserver* observer) override;
-	virtual std::string& Serialize() override;
+	virtual void OnNotify() override;
 
 	// ShapeEntity definition
 	ShapeEntity();

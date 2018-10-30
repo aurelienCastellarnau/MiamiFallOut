@@ -4,6 +4,13 @@
 #include "IObservable.hh"
 
 /*
+ShapeEntity implementation
+*/
+ShapeEntity::ShapeEntity() : IObservable()
+{
+}
+
+/*
  AbstractEntity implementation
 */
 void ShapeEntity::Draw(IShapeManager* shapeManager) {
@@ -13,6 +20,10 @@ void ShapeEntity::Draw(IShapeManager* shapeManager) {
 void ShapeEntity::Update() {
 
 }
+
+/*
+  IObservable implementation
+*/
 
 void ShapeEntity::AddObserver(IObserver * observer)
 {
@@ -24,17 +35,15 @@ void ShapeEntity::RemoveObserver(IObserver * observer)
 	_observers.remove(observer);
 }
 
+void ShapeEntity::OnNotify()
+{
+	std::cout << "\nNotify on ShapeEntity, X="<<GetX()<<" Y="<<GetY();
+}
+
 std::string& ShapeEntity::Serialize()
 {
 	std::string ret = "ShapeEntity";
 	return ret;
-}
-
-/*
- ShapeEntity implementation
- */
-ShapeEntity::ShapeEntity(): IObservable()
-{
 }
 
 sf::Shape* ShapeEntity::GetShape() const
@@ -60,11 +69,19 @@ double ShapeEntity::GetY() const
 void ShapeEntity::SetX(double x)
 {
 	_x = x;
+	for (IObserver* it : _observers) 
+	{
+		it->Notify(this);
+	}
 }
 
 void ShapeEntity::SetY(double y)
 {
 	_y = y;
+	for (IObserver* it : _observers)
+	{
+		it->Notify(this);
+	}
 }
 
 void ShapeEntity::SetCoordonates()
