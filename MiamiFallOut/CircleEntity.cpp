@@ -27,6 +27,23 @@ std::string & CircleEntity::Serialize()
 	return ret;
 }
 
+void CircleEntity::Move()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+		this->SetY(this->GetY() + 1);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+		this->SetY(this->GetY() - 1);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+		this->SetX(this->GetX() - 1);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+		this->SetX(this->GetX() + 1);
+	}
+	this->SetCoordonates();
+}
+
 sf::CircleShape * CircleEntity::GetCircle() const
 {
 	sf::Shape* s = GetShape();

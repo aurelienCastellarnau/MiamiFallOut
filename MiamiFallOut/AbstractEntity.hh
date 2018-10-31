@@ -10,6 +10,6 @@ public:
 
 	virtual void Draw(IShapeManager*) = 0;
 	virtual void Update() = 0;
-
+	virtual void Move() = 0;
 	virtual std::string& Serialize() = 0;
 };

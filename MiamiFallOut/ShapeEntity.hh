@@ -14,6 +14,7 @@ public:
 	virtual void Draw(IShapeManager*) override;
 	virtual void Update() override;
 	virtual std::string& Serialize() override;
+	virtual void Move() = 0;
 
 	// IObservable implementation
 
