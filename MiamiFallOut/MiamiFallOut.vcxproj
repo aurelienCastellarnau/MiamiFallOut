@@ -161,7 +161,6 @@
   <ItemGroup>
     <ClInclude Include="AbstractEntity.hh" />
     <ClInclude Include="CircleEntity.hh" />
-    <ClInclude Include="ControlEntity.hh" />
     <ClInclude Include="EntityFactory.hh" />
     <ClInclude Include="IObservable.hh" />
     <ClInclude Include="IObserver.hh" />
@@ -176,7 +175,6 @@
   <ItemGroup>
     <ClCompile Include="AbstractEntity.cpp" />
     <ClCompile Include="CircleEntity.cpp" />
-    <ClCompile Include="ControlEntity.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
     <ClCompile Include="ISerialize.cpp" />
     <ClCompile Include="MiamiFallOut.cpp" />
