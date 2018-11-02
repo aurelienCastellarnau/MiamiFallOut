@@ -1,6 +1,6 @@
 #pragma once
-const float WINDOW_WIDTH(1600.0f);
-const float WINDOW_HEIGHT(800.0f);
+const unsigned int WINDOW_WIDTH(1600);
+const unsigned int WINDOW_HEIGHT(800);
 #include "Scene.hh"
 class GameManager
 {
