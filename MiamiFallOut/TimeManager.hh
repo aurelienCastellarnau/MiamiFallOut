@@ -23,6 +23,7 @@ public:
 	void Update();
 	unsigned int GetElapsedTime() const;
 	unsigned int GetStartedTime() const;
+	unsigned int GetRandomInt(int a, int b);
 
 	// Destructor
 	~TimeManager();

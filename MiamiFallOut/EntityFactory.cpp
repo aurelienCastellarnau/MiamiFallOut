@@ -4,6 +4,7 @@
 #include "CircleEntity.hh"
 #include "RectangleEntity.hh"
 #include "Player.hh"
+#include "Enemy.hh"
 
 EntityFactory::EntityFactory()
 {
@@ -16,6 +17,9 @@ ShapeEntity* EntityFactory::Create(const std::string& class_name) {
 	} 
 	else if (class_name == "Player") {
 		return new Player();
+	}
+	else if (class_name == "Enemy") {
+		return new Enemy();
 	}
 	else if (class_name == "RectangleEntity") {
 		return new RectangleEntity();
