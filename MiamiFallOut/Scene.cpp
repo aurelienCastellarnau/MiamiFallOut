@@ -2,6 +2,7 @@
 #include "Scene.hh"
 #include "TimeManager.hh"
 #include "ShapeEntity.hh"
+#include "GameManager.hh"
 
 Scene::Scene() {}
 
@@ -14,7 +15,7 @@ Scene::Scene(sf::RenderWindow* window)
 
 void Scene::buildBackround()
 {
-	_bg_texture.create(1600, 800);
+ 	_bg_texture.create(WINDOW_WIDTH, WINDOW_HEIGHT);
 	_bg_texture.update(_bg_image);
 	_bg_sprite.setTexture(_bg_texture);
 	_window->draw(_bg_sprite);

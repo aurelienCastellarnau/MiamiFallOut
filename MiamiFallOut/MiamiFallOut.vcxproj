@@ -162,10 +162,12 @@
     <ClInclude Include="AbstractEntity.hh" />
     <ClInclude Include="CircleEntity.hh" />
     <ClInclude Include="EntityFactory.hh" />
+    <ClInclude Include="GameManager.hh" />
     <ClInclude Include="IObservable.hh" />
     <ClInclude Include="IObserver.hh" />
     <ClInclude Include="ISerialize.hh" />
     <ClInclude Include="IShapeManager.hh" />
+    <ClInclude Include="Player.hh" />
     <ClInclude Include="RectangleEntity.hh" />
     <ClInclude Include="Scene.hh" />
     <ClInclude Include="ShapeEntity.hh" />
@@ -177,8 +179,10 @@
     <ClCompile Include="AbstractEntity.cpp" />
     <ClCompile Include="CircleEntity.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="ISerialize.cpp" />
     <ClCompile Include="MiamiFallOut.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="RectangleEntity.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ShapeEntity.cpp" />
