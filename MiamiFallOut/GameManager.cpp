@@ -60,10 +60,15 @@ void GameManager::GameLoop() {
 
 			TimeManager::GetInstance().Update();
 			unsigned int elapsedTime = TimeManager::GetInstance().GetStartedTime();
-			this->GetScene()->GetEntities().front()->Move();
 			if (elapsedTime > 60) {
 				TimeManager::GetInstance().Start();
 			//	std::cout << "\nFPS: " << elapsedTime;
+			}
+			for (AbstractEntity* const& it : this->GetScene()->GetEntities())
+			{
+				this->GetScene()->GetEntities().front()->Move();
+				it->Move();
+				this->GetScene()->Update();
 			}
 		
 	}

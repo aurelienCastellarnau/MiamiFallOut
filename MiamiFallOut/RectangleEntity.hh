@@ -12,7 +12,7 @@ public:
 	virtual void Draw(IShapeManager*) override;
 	virtual void Update() override;
 	virtual std::string& Serialize() override;
-	virtual void Move() override;
+	virtual void Move();
 
 	sf::RectangleShape* GetRectangle() const;
 	void SetRectangle(float, float, sf::Color);

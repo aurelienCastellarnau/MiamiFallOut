@@ -2,10 +2,11 @@
 #include "Enemy.hh"
 #include "GameManager.hh"
 #include "TimeManager.hh"
+#include "Player.hh"
 
 Enemy::Enemy()
 {
-	int widthAndHeight = TimeManager::GetInstance().GetRandomInt(30, 100);
+	int widthAndHeight = TimeManager::GetInstance().GetRandomInt(30, 150);
 	this->SetRectangle(
 		widthAndHeight,
 		widthAndHeight,
@@ -19,6 +20,32 @@ Enemy::Enemy()
 	GameManager::GetInstance().GetScene()->AddEntity(this);
 }
 
+void Enemy::Move() {
+	Player *player = dynamic_cast<Player*>(GameManager::GetInstance().GetScene()->GetEntities().front());
+	float pX = player->GetX();
+	float pY = player->GetY();
+	float thisX = this->GetX();
+	float thisY = this->GetY();
+
+	if (abs(thisX - pX) > 0 && abs(thisX - pX) < 3) {
+		this->SetX(pX);
+	} else if (thisX < pX) {
+		this->SetX(thisX + 3);
+	}
+	else if (thisX > pX) {
+		this->SetX(thisX - 3);
+	}
+	
+	if (abs(thisY - pY) > 0 && abs(thisY - pY) < 3) {
+		this->SetY(pY);
+	} else if (thisY < pY) {
+		this->SetY(thisY + 3);
+	}
+	else if (thisY > pY) {
+		this->SetY(thisY - 3);
+	}
+	this->SetCoordonates();
+}
 
 Enemy::~Enemy()
 {

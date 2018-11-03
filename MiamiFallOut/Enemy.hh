@@ -4,6 +4,7 @@ class Enemy : public RectangleEntity
 {
 public:
 	Enemy();
+	virtual void Move() override;
 	~Enemy();
 };
 
