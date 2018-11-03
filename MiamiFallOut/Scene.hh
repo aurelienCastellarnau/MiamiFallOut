@@ -23,11 +23,11 @@ public:
 	
 	// IObserver implementation
 	virtual void Notify(IObservable* observable) override;
-	
+	void buildBackround();
+
 	~Scene();
 
 private:
-	void buildBackround();
 
 	std::list<AbstractEntity*> _entities;
 	sf::RenderWindow* _window;

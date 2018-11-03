@@ -11,7 +11,8 @@ public:
 
 	void GameStart();
 	void GameLoop();
-	
+	void MoveLaunch();
+
 	Scene* GetScene() const;
 	
 private:
@@ -19,7 +20,6 @@ private:
 	GameManager(const GameManager &);
 	GameManager();
 	GameManager &operator=(const GameManager &);
-
 	Scene* _scene;
 	void SetScene(Scene *scene);
 };
