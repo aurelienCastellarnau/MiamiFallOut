@@ -12,6 +12,7 @@ public:
 	virtual void Draw(IShapeManager*) override;
 	virtual void Update() override;
 	virtual std::string& Serialize() override;
+	virtual void Move() override;
 
 	sf::CircleShape* GetCircle() const;
 	void SetCircle(float, std::size_t, sf::Color);

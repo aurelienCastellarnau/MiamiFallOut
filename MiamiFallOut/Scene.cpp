@@ -2,6 +2,7 @@
 #include "Scene.hh"
 #include "TimeManager.hh"
 #include "ShapeEntity.hh"
+#include "GameManager.hh"
 
 Scene::Scene() {}
 
@@ -14,7 +15,7 @@ Scene::Scene(sf::RenderWindow* window)
 
 void Scene::buildBackround()
 {
-	_bg_texture.create(1000, 600);
+ 	_bg_texture.create(WINDOW_WIDTH, WINDOW_HEIGHT);
 	_bg_texture.update(_bg_image);
 	_bg_sprite.setTexture(_bg_texture);
 	_window->draw(_bg_sprite);
@@ -27,7 +28,7 @@ std::list<AbstractEntity*> Scene::GetEntities() const
 
 void Scene::AddEntity(AbstractEntity* const entity)
 {
-	_entities.push_front(entity);
+	_entities.push_back(entity);
 }
 
 void Scene::RemoveEntity(AbstractEntity* const entity)
@@ -37,7 +38,7 @@ void Scene::RemoveEntity(AbstractEntity* const entity)
 
 void Scene::Update()
 {
-	sf::Event event;
+	/*sf::Event event;
 	while (_window->pollEvent(event))
 	{
 		if (event.type == sf::Event::Closed)
@@ -53,6 +54,7 @@ void Scene::Update()
 		it->Draw(this);
 	}
 	_window->display();
+	*/
 }
 
 void Scene::SetWindow(sf::RenderWindow* w)
