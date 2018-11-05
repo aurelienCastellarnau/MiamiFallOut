@@ -50,12 +50,12 @@ void GameManager::GameLoop() {
 		TimeManager::GetInstance().Start();
 		std::cout << "\nKeyboard input constants: " << VK_BACK;
 		sf::Event event;
-
+		sf::Mouse::setPosition(sf::Vector2i(0, 0));
 		while (this->GetScene()->GetWindow()->isOpen())
 		{
 			while (GetScene()->GetWindow()->pollEvent(event))
 			{
-				if (event.type == sf::Event::Closed)
+				if (event.type == sf::Event::Closed || (event.KeyPressed && event.key.code == sf::Keyboard::Escape))
 					GetScene()->GetWindow()->close();
 			}
 			GetScene()->GetWindow()->clear();
