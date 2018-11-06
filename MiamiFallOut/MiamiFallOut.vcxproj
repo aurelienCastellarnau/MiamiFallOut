@@ -172,6 +172,7 @@
     <ClInclude Include="Player.hh" />
     <ClInclude Include="RectangleEntity.hh" />
     <ClInclude Include="Scene.hh" />
+    <ClInclude Include="ScoreManager.hh" />
     <ClInclude Include="ShapeEntity.hh" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -189,6 +190,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RectangleEntity.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="ScoreManager.cpp" />
     <ClCompile Include="ShapeEntity.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

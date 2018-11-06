@@ -13,7 +13,7 @@ ShapeEntity::ShapeEntity() : IObservable()
 /*
  AbstractEntity implementation
 */
-void ShapeEntity::Draw(IShapeManager* shapeManager) {
+void ShapeEntity::Draw(sf::RenderWindow* w) {
 
 }
 
@@ -46,6 +46,11 @@ std::string& ShapeEntity::Serialize()
 	return ret;
 }
 
+std::string ShapeEntity::GetEntityType() const
+{
+	return _entity_type;
+}
+
 sf::Shape* ShapeEntity::GetShape() const
 {
 	return _shape;
@@ -64,6 +69,11 @@ double ShapeEntity::GetX() const
 double ShapeEntity::GetY() const
 {
 	return _y;
+}
+
+void ShapeEntity::SetEntityType(std::string type)
+{
+	_entity_type = type;
 }
 
 void ShapeEntity::SetX(double x)

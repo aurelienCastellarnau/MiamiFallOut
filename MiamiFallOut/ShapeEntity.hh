@@ -11,7 +11,7 @@ class ShapeEntity :
 public:
 	// AbstractEntity implementation
 
-	virtual void Draw(IShapeManager*) override;
+	virtual void Draw(sf::RenderWindow*) override;
 	virtual void Update() override;
 	virtual std::string& Serialize() override;
 	virtual void Move() = 0;
@@ -26,11 +26,13 @@ public:
 	ShapeEntity();
 	virtual ~ShapeEntity() = 0;
 
-	virtual sf::Shape* GetShape() const;
+	virtual std::string GetEntityType() const override;
+	virtual sf::Shape* GetShape() const override;
 	virtual void SetShape(sf::Shape*);
 
 	virtual double GetX() const;
 	virtual double GetY() const;
+	virtual void SetEntityType(std::string type) override;
 	virtual void SetX(double x);
 	virtual void SetY(double y);
 	virtual void SetCoordonates();
@@ -39,6 +41,7 @@ private:
 	double _x;
 	double _y;
 	sf::Shape* _shape;
+	std::string _entity_type;
 	std::list<IObserver*> _observers;
 };
 
