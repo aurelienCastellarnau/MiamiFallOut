@@ -38,7 +38,7 @@ void Scene::RemoveEntity(AbstractEntity* const entity)
 
 void Scene::Update()
 {
-	sf::Event event;
+	/*sf::Event event;
 	while (_window->pollEvent(event))
 	{
 		if (event.type == sf::Event::Closed)
@@ -54,6 +54,7 @@ void Scene::Update()
 		it->Draw(this);
 	}
 	_window->display();
+	*/
 }
 
 void Scene::SetWindow(sf::RenderWindow* w)

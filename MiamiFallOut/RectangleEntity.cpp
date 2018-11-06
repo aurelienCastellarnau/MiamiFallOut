@@ -29,19 +29,7 @@ std::string & RectangleEntity::Serialize()
 
 void RectangleEntity::Move()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-		this->SetY(this->GetY() + 2);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-		this->SetY(this->GetY() - 2);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		this->SetX(this->GetX() - 2);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		this->SetX(this->GetX() + 2);
-	}
-	this->SetCoordonates();
+	
 }
 
 sf::RectangleShape * RectangleEntity::GetRectangle() const

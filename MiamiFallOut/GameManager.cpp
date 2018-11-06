@@ -31,8 +31,10 @@ Scene* GameManager::GetScene() const {
 }
 
 void GameManager::GameStart() {
-
+	
 }
+
+
 
 void GameManager::GameLoop() {
 	if (_init == false) {
@@ -47,11 +49,18 @@ void GameManager::GameLoop() {
 		Enemy *enemy = dynamic_cast<Enemy*>(factory->Create("Enemy"));
 		TimeManager::GetInstance().Start();
 		std::cout << "\nKeyboard input constants: " << VK_BACK;
-	
+		sf::Event event;
+
 		while (this->GetScene()->GetWindow()->isOpen())
 		{
-
-			this->GetScene()->Update();
+			while (GetScene()->GetWindow()->pollEvent(event))
+			{
+				if (event.type == sf::Event::Closed)
+					GetScene()->GetWindow()->close();
+			}
+			GetScene()->GetWindow()->clear();
+			GetScene()->buildBackround();
+			
 			// Boucle de jeu avec frames réglées sur 60...
 			// Tout se fait au travers du pattern observer,
 			// changer x ou y déclenche l'update de la scene
@@ -60,13 +69,20 @@ void GameManager::GameLoop() {
 
 			TimeManager::GetInstance().Update();
 			unsigned int elapsedTime = TimeManager::GetInstance().GetStartedTime();
-			this->GetScene()->GetEntities().front()->Move();
+
 			if (elapsedTime > 60) {
 				TimeManager::GetInstance().Start();
-			//	std::cout << "\nFPS: " << elapsedTime;
+				std::cout << "\nFPS: " << elapsedTime;
 			}
-		
-	}
+			for (AbstractEntity* const& it : GetScene()->GetEntities())
+			{
+				it->Move();
+				it->Draw(GetScene());
+				it->Update();
+			}
+			GetScene()->GetWindow()->display();
+
+		}
 	}
 
 }

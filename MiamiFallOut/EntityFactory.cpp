@@ -14,15 +14,15 @@ ShapeEntity* EntityFactory::Create(const std::string& class_name) {
 	
 	if (class_name == "CircleEntity") {
 		return new CircleEntity();
-	} 
+	}
+	else if (class_name == "RectangleEntity") {
+		return new RectangleEntity();
+	}
 	else if (class_name == "Player") {
 		return new Player();
 	}
 	else if (class_name == "Enemy") {
 		return new Enemy();
-	}
-	else if (class_name == "RectangleEntity") {
-		return new RectangleEntity();
 	}
 	else {
 		return NULL;
