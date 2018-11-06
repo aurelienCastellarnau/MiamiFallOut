@@ -2,6 +2,7 @@
 const unsigned int WINDOW_WIDTH(1600);
 const unsigned int WINDOW_HEIGHT(800);
 #include "Scene.hh"
+#include "ScoreManager.hh"
 class GameManager
 {
 public:
@@ -21,5 +22,7 @@ private:
 	GameManager();
 	GameManager &operator=(const GameManager &);
 	Scene* _scene;
+	ScoreManager* _score_manager;
 	void SetScene(Scene *scene);
+	void SetScoreManager(ScoreManager* score_manager);
 };

@@ -9,7 +9,7 @@ class CircleEntity :
 public:
 	CircleEntity();
 	
-	virtual void Draw(IShapeManager*) override;
+	virtual void Draw(sf::RenderWindow*) override;
 	virtual void Update() override;
 	virtual std::string& Serialize() override;
 	virtual void Move();

@@ -9,12 +9,12 @@
 CircleEntity::CircleEntity()
 	: ShapeEntity()
 {
+	SetEntityType("CircleEntity");
 }
 
-void CircleEntity::Draw(IShapeManager* manager)
+void CircleEntity::Draw(sf::RenderWindow* window)
 {
 	sf::Shape* s = GetShape();
-	sf::RenderWindow* window = manager->GetWindow();
 	window->draw(*s);
 	std::cout << "Circle Entity";
 }

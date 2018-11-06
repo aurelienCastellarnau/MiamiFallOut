@@ -40,22 +40,39 @@ void GameManager::GameLoop() {
 		_init = true;
 		EntityFactory *factory = new EntityFactory();
 
+		// sf objects
+		sf::Event event;
+		sf::Mouse::setPosition(sf::Vector2i(0, 0));
 		sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Miami Fall Out !");
+		
+		// Observers
 		Scene* scene = new Scene(&window);
+		_scene->GetWindow()->clear();
+		_scene->buildBackround();
+		ScoreManager* score_manager = new ScoreManager(&window);
+
 		// La scene porte la window et observe les entitées
 		this->SetScene(scene);
 		Player *player = dynamic_cast<Player*>(factory->Create("Player"));
 		Enemy *enemy = dynamic_cast<Enemy*>(factory->Create("Enemy"));
-		// settle obersver pattern
-		player->AddObserver(this->_scene);
-		this->_scene->AddEntity(player);
-		enemy->AddObserver(this->_scene);
-		this->_scene->AddEntity(enemy);
+
 		// Start timer
-		TimeManager::GetInstance().Start();
-		std::cout << "\nKeyboard input constants: " << VK_BACK;
-		sf::Event event;
-		sf::Mouse::setPosition(sf::Vector2i(0, 0));
+		TimeManager& tm = TimeManager::GetInstance();
+
+		// settle observer pattern
+		// scene
+		_scene->AddEntity(enemy);
+		_scene->AddEntity(player);
+		player->AddObserver(_scene);
+		enemy->AddObserver(_scene);
+		// score manager
+		_score_manager->AddEntity(player);
+		_score_manager->AddEntity(enemy);
+		player->AddObserver(_score_manager);
+		enemy->AddObserver(_score_manager);
+
+		tm.Start();
+		
 		while (this->GetScene()->GetWindow()->isOpen())
 		{
 			while (GetScene()->GetWindow()->pollEvent(event))
@@ -63,47 +80,31 @@ void GameManager::GameLoop() {
 				if (event.type == sf::Event::Closed || (event.KeyPressed && event.key.code == sf::Keyboard::Escape))
 					GetScene()->GetWindow()->close();
 			}
-			GetScene()->GetWindow()->clear();
-			GetScene()->buildBackround();
-			
 			// Boucle de jeu avec frames réglées sur 60...
 			// Tout se fait au travers du pattern observer,
 			// changer x ou y déclenche l'update de la scene
 			// elle reconstruit son background et redessine
 			// le cercle...		
 
-			TimeManager::GetInstance().Update();
-			unsigned int elapsedTime = TimeManager::GetInstance().GetStartedTime();
+			tm.Update();
+			unsigned int elapsedTime = tm.GetStartedTime();
+
+			GetScene()->GetWindow()->clear();
+			GetScene()->buildBackround();
+			_scene->Update();
+			_score_manager->Update();
+			GetScene()->GetWindow()->display();
 
 			if (elapsedTime > 60) {
-				TimeManager::GetInstance().Start();
+				tm.Start();
 				//std::cout << "\nFPS: " << elapsedTime;
 				for (ShapeEntity* const& it : _scene->GetEntities())
 				{
 					it->Move();
 					_scene->GetWindow()->draw(*(it->GetShape()));
-					// it->Draw(GetScene());
-					// it->Update();
 				}
 				GetScene()->GetWindow()->display();
 			}
-		
-			/*
-				std::cout << "\nFPS: " << elapsedTime;
-				for (AbstractEntity* const& it : GetScene()->GetEntities())
-				{
-					it->Move();
-					it->Draw(GetScene());
-					it->Update();
-				}
-
-				GetScene()->GetWindow()->display();
-				}
-			*/
-
 		}
 	}
-
 }
-
-

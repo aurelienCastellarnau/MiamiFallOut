@@ -6,6 +6,7 @@
 
 Enemy::Enemy()
 {
+	this->SetEntityType("enemy");
 	int widthAndHeight = TimeManager::GetInstance().GetRandomInt(30, 150);
 	this->SetRectangle(
 		widthAndHeight,

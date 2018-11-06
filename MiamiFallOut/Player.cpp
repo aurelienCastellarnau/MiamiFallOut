@@ -9,7 +9,8 @@
 
 Player::Player()
 {
-	this->SetCircle(30.0f, 100, sf::Color(255,255,255,255));
+	this->SetEntityType("player");
+	this->SetCircle(30.0f, 100, sf::Color::Cyan);
 	float radius = this->GetCircle()->getRadius();
 	this->GetCircle()->setOrigin(sf::Vector2f(this->GetCircle()->getRadius(), this->GetCircle()->getRadius()));
 	this->SetX((WINDOW_WIDTH / 2));
