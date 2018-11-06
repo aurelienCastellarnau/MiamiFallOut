@@ -2,6 +2,7 @@
 #include "CircleEntity.hh"
 #include "Player.hh"
 
+class Player;
 class Bullet : public CircleEntity
 {
 public:

@@ -18,11 +18,11 @@ Bullet::Bullet(Player *player) : CircleEntity()
 	float playerRadius = player->GetCircle()->getRadius();
 	float rotation = player->GetCircle()->getRotation();
 	CalculateAndSetAxe(rotation);
-	this->SetX(this->_coeffX * playerRadius);
-	this->SetY(this->_coeffY * playerRadius);
+	this->SetX(player->GetX() + this->_coeffX * playerRadius);
+	this->SetY(player->GetY() + this->_coeffY * playerRadius);
 	this->SetCoordonates();
 	Scene &scene = *(GameManager::GetInstance().GetScene());
-	this->AddObserver(&scene);
+	//this->AddObserver(&scene);
 	GameManager::GetInstance().GetScene()->AddEntity(this);
 }
 
@@ -42,15 +42,21 @@ void Bullet::CalculateAndSetAxe(int rotation)
 	if (rotation < 0) {
 		rotation = 360 - rotation;
 	}
+
 	_axe = rotation;
+	std::cout << "ROTATION: " << rotation;
 
 	if (rotation == 0) {
 		_coeffX = 0.00;
 		_coeffY = -1.00f;
 	}
-	if (rotation > 0 && rotation < 90) {
+	else if (rotation > 0 && rotation < 90) {
+
+
 		_coeffX = sin(rotation);
-		_coeffY = cos(rotation) - 1.000000f;
+		_coeffY = cos(rotation);
+		std::cout << "_coeffX: " << _coeffX;
+		std::cout << "_coeffY: " << _coeffY;
 	}
 	else if (rotation == 90) {
 		_coeffX = 1.00f;
@@ -73,14 +79,14 @@ void Bullet::CalculateAndSetAxe(int rotation)
 		_coeffY = 0.00f;
 	} else  {
 		_coeffX = sin(rotation);
-		_coeffY = cos(rotation) * -1.000000f;;
+		_coeffY = cos(rotation) * -1.000000f;
 	}
 }
 
 void Bullet::Move()
 {
-	SetX(GetX() + _coeffX * BULLET_SPEED);
-	SetY(GetY() + _coeffY * BULLET_SPEED);
+	this->SetX(float(this->GetX() + _coeffX * BULLET_SPEED));
+	this->SetY(float(this->GetY() + _coeffY * BULLET_SPEED));
 	SetCoordonates();
 }
 

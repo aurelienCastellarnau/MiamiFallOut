@@ -70,10 +70,10 @@ sf::RenderWindow* Scene::GetWindow() const
 // IObserver implementation
 void Scene::Notify(IObservable *observable)
 {
-	std::cout << "\nCall notify on Scene";
+	/*std::cout << "\nCall notify on Scene";
 	this->Update();
 	observable->OnNotify();
-	return;
+	return;*/
 }
 
 Scene::~Scene()

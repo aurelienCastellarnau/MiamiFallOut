@@ -45,7 +45,7 @@ void GameManager::GameLoop() {
 		// La scene porte la window et observe les entitées
 		this->SetScene(scene);
 		Player *player = dynamic_cast<Player*>(factory->Create("Player"));
-		Enemy *enemy = dynamic_cast<Enemy*>(factory->Create("Enemy"));
+		//Enemy *enemy = dynamic_cast<Enemy*>(factory->Create("Enemy"));
 		TimeManager::GetInstance().Start();
 		std::cout << "\nKeyboard input constants: " << VK_BACK;
 		sf::Event event;
@@ -71,7 +71,7 @@ void GameManager::GameLoop() {
 
 			if (elapsedTime > 60) {
 				TimeManager::GetInstance().Start();
-				std::cout << "\nFPS: " << elapsedTime;
+				//std::cout << "\nFPS: " << elapsedTime;
 			}
 			for (AbstractEntity* const& it : GetScene()->GetEntities())
 			{
