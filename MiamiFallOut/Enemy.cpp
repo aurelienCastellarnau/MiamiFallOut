@@ -15,6 +15,7 @@ Enemy::Enemy()
 	this->SetX(TimeManager::GetInstance().GetRandomInt(0, WINDOW_WIDTH - widthAndHeight));
 	this->SetY(0);
 	this->SetCoordonates();
+	this->GetRectangle()->setOrigin(sf::Vector2f(widthAndHeight / 2 , widthAndHeight / 2));
 	Scene &scene = *(GameManager::GetInstance().GetScene());
 	this->AddObserver(&scene);
 	GameManager::GetInstance().GetScene()->AddEntity(this);
