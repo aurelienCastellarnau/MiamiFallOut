@@ -8,8 +8,10 @@ class TimeManager
 {
 	
 public:
+	// pas singleton
+
 	// Singleton accessor
-// Singleton accessor (public)
+	// Singleton accessor (public)
 	static TimeManager & GetInstance()
 	{
 		static TimeManager _instance;

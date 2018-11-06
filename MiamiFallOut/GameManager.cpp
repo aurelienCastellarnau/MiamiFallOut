@@ -87,6 +87,19 @@ void GameManager::GameLoop() {
 				}
 				GetScene()->GetWindow()->display();
 			}
+		
+			/*
+				std::cout << "\nFPS: " << elapsedTime;
+				for (AbstractEntity* const& it : GetScene()->GetEntities())
+				{
+					it->Move();
+					it->Draw(GetScene());
+					it->Update();
+				}
+
+				GetScene()->GetWindow()->display();
+				}
+			*/
 
 		}
 	}
