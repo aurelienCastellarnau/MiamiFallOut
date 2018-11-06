@@ -16,7 +16,7 @@ Player::Player()
 	this->SetY((WINDOW_HEIGHT));
 	this->SetCoordonates();
 	Scene &scene = *(GameManager::GetInstance().GetScene());
-	this->AddObserver(&scene);
+	//this->AddObserver(&scene);
 	GameManager::GetInstance().GetScene()->AddEntity(this);
 	_playerTexture.loadFromFile("../asset/player_big.png", sf::IntRect(0, 0, 60, 60));
 	_playerTexture.setSmooth(true);
@@ -33,10 +33,10 @@ void Player::Draw(IShapeManager* manager) {
 	sf::Shape* s = GetShape();
 	sf::RenderWindow* window = manager->GetWindow();
 	window->draw(*s);
-	if (this->bullet) {
+	/*if (this->bullet) {
 		this->bullet->Move();
 		window->draw(*(bullet->GetShape()));
-	}
+	}*/
 }
 
 
@@ -60,14 +60,14 @@ void Player::Move()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 		this->GetCircle()->rotate(180);
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 		this->GetCircle()->rotate(5);
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 		this->GetCircle()->rotate(-5);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		this->bullet = new Bullet();
+		this->bullet = new Bullet(this);
 	}
 	this->SetCoordonates();
 }
