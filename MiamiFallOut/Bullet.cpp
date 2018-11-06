@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Bullet.hh"
 #include <math.h>
+#include "GameManager.hh"
+#include "Player.hh"
 
 Bullet::Bullet()
 {
@@ -8,24 +10,20 @@ Bullet::Bullet()
 
 
 
-Bullet::Bullet(Player player)
+Bullet::Bullet(Player *player) : CircleEntity()
 {
 	this->SetCircle(5, 100, sf::Color(255, 255, 255, 255));
 	float radius = this->GetCircle()->getRadius();
 	this->GetCircle()->setOrigin(sf::Vector2f(this->GetCircle()->getRadius(), this->GetCircle()->getRadius()));
-
-	float rotation = player.GetCircle()->getRotation();
-	
-	/*this->SetX((WINDOW_WIDTH / 2));
-	this->SetY((WINDOW_HEIGHT));
-	
+	float playerRadius = player->GetCircle()->getRadius();
+	float rotation = player->GetCircle()->getRotation();
+	CalculateAndSetAxe(rotation);
+	this->SetX(this->_coeffX * playerRadius);
+	this->SetY(this->_coeffY * playerRadius);
 	this->SetCoordonates();
 	Scene &scene = *(GameManager::GetInstance().GetScene());
 	this->AddObserver(&scene);
 	GameManager::GetInstance().GetScene()->AddEntity(this);
-	_playerTexture.loadFromFile("../asset/player_big.png", sf::IntRect(0, 0, 60, 60));
-	_playerTexture.setSmooth(true);
-	this->GetCircle()->setTexture(&_playerTexture, false);*/
 }
 
 
@@ -44,6 +42,7 @@ void Bullet::CalculateAndSetAxe(int rotation)
 	if (rotation < 0) {
 		rotation = 360 - rotation;
 	}
+	_axe = rotation;
 
 	if (rotation == 0) {
 		_coeffX = 0.00;
@@ -80,6 +79,9 @@ void Bullet::CalculateAndSetAxe(int rotation)
 
 void Bullet::Move()
 {
+	SetX(GetX() + _coeffX * BULLET_SPEED);
+	SetY(GetY() + _coeffY * BULLET_SPEED);
+	SetCoordonates();
 }
 
 double Bullet::GetCoeffX()
@@ -110,14 +112,4 @@ int Bullet::GetAxe()
 void Bullet::SetAxe(int axe)
 {
 	_axe = axe;
-}
-
-int Bullet::GetSpeed()
-{
-	return _speed;
-}
-
-void Bullet::SetSpeed(int speed)
-{
-	_speed = speed;
 }

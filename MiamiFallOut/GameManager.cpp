@@ -35,7 +35,6 @@ void GameManager::GameStart() {
 }
 
 
-
 void GameManager::GameLoop() {
 	if (_init == false) {
 		_init = true;

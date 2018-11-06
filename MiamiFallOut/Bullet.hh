@@ -6,7 +6,7 @@ class Bullet : public CircleEntity
 {
 public:
 	Bullet();
-	Bullet(Player player);
+	Bullet(Player* player);
 	~Bullet();
 
 	void GetBulletDirection();
@@ -22,14 +22,10 @@ public:
 	double GetCoeffY();
 	void SetCoeffY(double coeff);
 
-	int GetSpeed();
-	void SetSpeed(int speed);
-
 private:
 	int _axe;
 	double _coeffX;
 	double _coeffY;
-	int _speed;
-	
+	const int BULLET_SPEED = 1;
 };
 

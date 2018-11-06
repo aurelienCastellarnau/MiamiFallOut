@@ -13,7 +13,6 @@ public:
 	virtual void Update() override;
 	virtual std::string& Serialize() override;
 	virtual void Move();
-
 	sf::CircleShape* GetCircle() const;
 	void SetCircle(float, std::size_t, sf::Color);
 
