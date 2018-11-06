@@ -28,7 +28,7 @@ std::list<AbstractEntity*> Scene::GetEntities() const
 
 void Scene::AddEntity(AbstractEntity* const entity)
 {
-	_entities.push_front(entity);
+	_entities.push_back(entity);
 }
 
 void Scene::RemoveEntity(AbstractEntity* const entity)

@@ -2,10 +2,12 @@
 #include <chrono>
 #include <iostream>
 #include "TimeManager.hh"
+#include <time.h>
 
 // Constructor (private)
 TimeManager::TimeManager()
 {
+	srand(time(NULL));
 }
 
 /*
@@ -50,6 +52,13 @@ unsigned int TimeManager::GetStartedTime() const
 	std::chrono::nanoseconds diff_nano = std::chrono::duration_cast<std::chrono::nanoseconds>(diff);
 	return diff_milli.count();
 }
+
+unsigned int TimeManager::GetRandomInt(int a, int b)
+{
+	return rand() % (b - a) + a;
+}
+
+
 
 // Destructor
 TimeManager::~TimeManager()

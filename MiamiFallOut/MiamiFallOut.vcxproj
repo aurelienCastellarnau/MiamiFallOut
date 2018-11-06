@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="AbstractEntity.hh" />
     <ClInclude Include="CircleEntity.hh" />
+    <ClInclude Include="Enemy.hh" />
     <ClInclude Include="EntityFactory.hh" />
     <ClInclude Include="GameManager.hh" />
     <ClInclude Include="IObservable.hh" />
@@ -178,6 +179,7 @@
   <ItemGroup>
     <ClCompile Include="AbstractEntity.cpp" />
     <ClCompile Include="CircleEntity.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="ISerialize.cpp" />
