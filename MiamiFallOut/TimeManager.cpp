@@ -38,7 +38,7 @@ unsigned int TimeManager::GetElapsedTime() const
 		std::chrono::duration<double> elapsed_time = _update.time_since_epoch() -_last_call.time_since_epoch();
 		std::chrono::milliseconds et_milli = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed_time);
 		std::chrono::nanoseconds et_nano = std::chrono::duration_cast<std::chrono::nanoseconds>(elapsed_time);
-		return et_milli.count();
+			return et_milli.count();
 	}
 }
 
