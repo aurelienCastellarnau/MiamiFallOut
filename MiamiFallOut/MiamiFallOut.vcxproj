@@ -160,6 +160,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AbstractEntity.hh" />
+    <ClInclude Include="Bullet.hh" />
     <ClInclude Include="CircleEntity.hh" />
     <ClInclude Include="Enemy.hh" />
     <ClInclude Include="EntityFactory.hh" />
@@ -178,6 +179,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AbstractEntity.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CircleEntity.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EntityFactory.cpp" />

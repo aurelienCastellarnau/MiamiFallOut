@@ -33,5 +33,38 @@ void Player::Draw(IShapeManager* manager) {
 	sf::Shape* s = GetShape();
 	sf::RenderWindow* window = manager->GetWindow();
 	window->draw(*s);
-	window->draw(_playerSprite);
+}
+
+
+void Player::Move()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		this->SetY(this->GetY() + 1);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
+		this->SetY(this->GetY() - 1);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+		this->SetX(this->GetX() - 1);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+		this->SetX(this->GetX() + 1);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+		this->GetCircle()->setRotation(0);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+		this->GetCircle()->rotate(180);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+		this->GetCircle()->rotate(5);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+		this->GetCircle()->rotate(-5);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+		//fire
+
+	}
+	this->SetCoordonates();
 }
