@@ -161,12 +161,12 @@
   <ItemGroup>
     <ClInclude Include="AbstractEntity.hh" />
     <ClInclude Include="CircleEntity.hh" />
-    <ClInclude Include="ControlEntity.hh" />
     <ClInclude Include="EntityFactory.hh" />
     <ClInclude Include="IObservable.hh" />
     <ClInclude Include="IObserver.hh" />
     <ClInclude Include="ISerialize.hh" />
     <ClInclude Include="IShapeManager.hh" />
+    <ClInclude Include="RectangleEntity.hh" />
     <ClInclude Include="Scene.hh" />
     <ClInclude Include="ShapeEntity.hh" />
     <ClInclude Include="stdafx.h" />
@@ -176,10 +176,10 @@
   <ItemGroup>
     <ClCompile Include="AbstractEntity.cpp" />
     <ClCompile Include="CircleEntity.cpp" />
-    <ClCompile Include="ControlEntity.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
     <ClCompile Include="ISerialize.cpp" />
     <ClCompile Include="MiamiFallOut.cpp" />
+    <ClCompile Include="RectangleEntity.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ShapeEntity.cpp" />
     <ClCompile Include="stdafx.cpp">

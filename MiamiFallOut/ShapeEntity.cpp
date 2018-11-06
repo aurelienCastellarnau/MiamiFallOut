@@ -68,7 +68,15 @@ double ShapeEntity::GetY() const
 
 void ShapeEntity::SetX(double x)
 {
-	_x = x;
+
+	if (x < 0) {
+		_x = 0;
+	} else if (x + _shape->getGlobalBounds().width >= 1600 ) {
+		_x = 1600 - _shape->getGlobalBounds().width;
+	} else {
+		_x = x;
+	}
+
 	for (IObserver* it : _observers) 
 	{
 		it->Notify(this);
@@ -77,7 +85,16 @@ void ShapeEntity::SetX(double x)
 
 void ShapeEntity::SetY(double y)
 {
-	_y = y;
+	if (y < 0) {
+		_y = 0;
+	}
+	else if (y + _shape->getGlobalBounds().height >= 800) {
+		_y = 800 - _shape->getGlobalBounds().height;
+	}
+	else {
+		_y = y;
+	}
+
 	for (IObserver* it : _observers)
 	{
 		it->Notify(this);
