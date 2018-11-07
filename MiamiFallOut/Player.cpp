@@ -16,7 +16,7 @@ Player::Player()
 	this->SetY((WINDOW_HEIGHT));
 	this->SetCoordonates();
 	Scene &scene = *(GameManager::GetInstance().GetScene());
-	//this->AddObserver(&scene);
+	this->AddObserver(&scene);
 	GameManager::GetInstance().GetScene()->AddEntity(this);
 	_playerTexture.loadFromFile("../asset/player_big.png", sf::IntRect(0, 0, 60, 60));
 	_playerTexture.setSmooth(true);

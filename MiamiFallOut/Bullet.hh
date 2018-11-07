@@ -14,8 +14,8 @@ public:
 	void CalculateAndSetAxe(int rotation);
 	virtual void Move() override;
 
-	int GetAxe();
-	void SetAxe(int Axe);
+	double GetAxe();
+	void SetAxe(double Axe);
 
 	double GetCoeffX();
 	void SetCoeffX(double coeff);
@@ -24,7 +24,7 @@ public:
 	void SetCoeffY(double coeff);
 
 private:
-	int _axe;
+	double _axe;
 	double _coeffX;
 	double _coeffY;
 	const int BULLET_SPEED = 1;

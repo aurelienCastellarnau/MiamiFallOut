@@ -3,6 +3,7 @@
 #include <math.h>
 #include "GameManager.hh"
 #include "Player.hh"
+#define PI 3.14159265
 
 Bullet::Bullet()
 {
@@ -36,15 +37,11 @@ void Bullet::GetBulletDirection()
 }
 
 void Bullet::CalculateAndSetAxe(int rotation)
-{
-	rotation %= 360;
-	
-	if (rotation < 0) {
-		rotation = 360 - rotation;
-	}
+{	
+	_axe = ((double)rotation) * PI/180;
+	std::cout << "ROTATION: " << rotation << "\n";
+	std::cout << "_axe: " << _axe << "\n";
 
-	_axe = rotation;
-	std::cout << "ROTATION: " << rotation;
 
 	if (rotation == 0) {
 		_coeffX = 0.00;
@@ -52,9 +49,9 @@ void Bullet::CalculateAndSetAxe(int rotation)
 	}
 	else if (rotation > 0 && rotation < 90) {
 
-
-		_coeffX = sin(rotation);
-		_coeffY = cos(rotation);
+		
+		_coeffX = sin(_axe);
+		_coeffY = cos(_axe) * (-1.0000f);
 		std::cout << "_coeffX: " << _coeffX;
 		std::cout << "_coeffY: " << _coeffY;
 	}
@@ -63,30 +60,30 @@ void Bullet::CalculateAndSetAxe(int rotation)
 		_coeffY = 0.00f;
 	}
 	else if (rotation > 90 && rotation < 180) {
-		_coeffX = sin(rotation);
-		_coeffY = abs(cos(rotation)) ;
+		_coeffX = sin(_axe);
+		_coeffY = abs(cos(_axe)) ;
 	}
 	else if (rotation == 180) {
 		_coeffX = 0.00f;
 		_coeffY = 1.00f;
 	}
 	else if (rotation > 180 && rotation < 270) {
-		_coeffX = sin(rotation);
-		_coeffY = abs(cos(rotation));
+		_coeffX = sin(_axe);
+		_coeffY = abs(cos(_axe));
 	}
 	else if (rotation == 270) {
 		_coeffX = -1.00f;
 		_coeffY = 0.00f;
 	} else  {
-		_coeffX = sin(rotation);
-		_coeffY = cos(rotation) * -1.000000f;
+		_coeffX = sin(_axe);
+		_coeffY = cos(_axe) * -1.000000f;
 	}
 }
 
 void Bullet::Move()
 {
-	this->SetX(float(this->GetX() + _coeffX * BULLET_SPEED));
-	this->SetY(float(this->GetY() + _coeffY * BULLET_SPEED));
+	this->SetX(float(this->GetX() + (_coeffX * BULLET_SPEED)));
+	this->SetY(float(this->GetY() + (_coeffY * BULLET_SPEED)));
 	SetCoordonates();
 }
 
@@ -110,12 +107,12 @@ void Bullet::SetCoeffY(double coeff)
 	_coeffY = coeff;
 }
 
-int Bullet::GetAxe()
+double Bullet::GetAxe()
 {
 	return _axe;
 }
 
-void Bullet::SetAxe(int axe)
+void Bullet::SetAxe(double axe)
 {
 	_axe = axe;
 }
