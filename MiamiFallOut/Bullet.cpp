@@ -18,7 +18,7 @@ Bullet::Bullet(Player *player) : CircleEntity()
 	this->GetCircle()->setOrigin(sf::Vector2f(this->GetCircle()->getRadius(), this->GetCircle()->getRadius()));
 	float playerRadius = player->GetCircle()->getRadius();
 	float rotation = player->GetCircle()->getRotation();
-	CalculateAndSetAxe(rotation);
+	this->CalculateAndSetAxe(rotation);
 	this->SetX(player->GetX() + this->_coeffX * playerRadius);
 	this->SetY(player->GetY() + this->_coeffY * playerRadius);
 	this->SetCoordonates();
@@ -39,21 +39,13 @@ void Bullet::GetBulletDirection()
 void Bullet::CalculateAndSetAxe(int rotation)
 {	
 	_axe = ((double)rotation) * PI/180;
-	std::cout << "ROTATION: " << rotation << "\n";
-	std::cout << "_axe: " << _axe << "\n";
-
-
 	if (rotation == 0) {
 		_coeffX = 0.00;
 		_coeffY = -1.00f;
 	}
 	else if (rotation > 0 && rotation < 90) {
-
-		
 		_coeffX = sin(_axe);
 		_coeffY = cos(_axe) * (-1.0000f);
-		std::cout << "_coeffX: " << _coeffX;
-		std::cout << "_coeffY: " << _coeffY;
 	}
 	else if (rotation == 90) {
 		_coeffX = 1.00f;

@@ -11,7 +11,6 @@ public:
 	~Bullet();
 
 	void GetBulletDirection();
-	void CalculateAndSetAxe(int rotation);
 	virtual void Move() override;
 
 	double GetAxe();
@@ -27,6 +26,7 @@ private:
 	double _axe;
 	double _coeffX;
 	double _coeffY;
+	void CalculateAndSetAxe(int rotation);
 	const int BULLET_SPEED = 1;
 };
 
