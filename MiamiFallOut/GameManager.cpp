@@ -35,7 +35,6 @@ void GameManager::GameStart() {
 }
 
 
-
 void GameManager::GameLoop() {
 	if (_init == false) {
 		_init = true;
@@ -72,7 +71,7 @@ void GameManager::GameLoop() {
 
 			if (elapsedTime > 60) {
 				TimeManager::GetInstance().Start();
-				std::cout << "\nFPS: " << elapsedTime;
+				//std::cout << "\nFPS: " << elapsedTime;
 			}
 			for (AbstractEntity* const& it : GetScene()->GetEntities())
 			{

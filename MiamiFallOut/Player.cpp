@@ -5,6 +5,7 @@
 #include "GameManager.hh"
 #include "IShapeManager.hh"
 #include "ShapeEntity.hh"
+#include "Bullet.hh"
 
 Player::Player()
 {
@@ -20,7 +21,6 @@ Player::Player()
 	_playerTexture.loadFromFile("../asset/player_big.png", sf::IntRect(0, 0, 60, 60));
 	_playerTexture.setSmooth(true);
 	this->GetCircle()->setTexture(&_playerTexture, false);
-
 }
 
 
@@ -33,5 +33,41 @@ void Player::Draw(IShapeManager* manager) {
 	sf::Shape* s = GetShape();
 	sf::RenderWindow* window = manager->GetWindow();
 	window->draw(*s);
-	window->draw(_playerSprite);
+	/*if (this->bullet) {
+		this->bullet->Move();
+		window->draw(*(bullet->GetShape()));
+	}*/
+}
+
+
+void Player::Move()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		this->SetY(this->GetY() + PLAYER_SPEED);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
+		this->SetY(this->GetY() - PLAYER_SPEED);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+		this->SetX(this->GetX() - PLAYER_SPEED);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+		this->SetX(this->GetX() + PLAYER_SPEED);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+		this->GetCircle()->setRotation(0);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+		this->GetCircle()->rotate(180);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+		this->GetCircle()->rotate(5);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+		this->GetCircle()->rotate(-5);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+		this->bullet = new Bullet(this);
+	}
+	this->SetCoordonates();
 }

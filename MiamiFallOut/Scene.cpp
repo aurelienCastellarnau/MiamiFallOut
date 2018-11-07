@@ -10,7 +10,6 @@ Scene::Scene(sf::RenderWindow* window)
 {
 	_window = window;
 	_bg_image.loadFromFile("../asset/beach.png");
-	// ImageTileMap.createMaskFromColor(...);
 }
 
 void Scene::buildBackround()
@@ -38,23 +37,6 @@ void Scene::RemoveEntity(AbstractEntity* const entity)
 
 void Scene::Update()
 {
-	/*sf::Event event;
-	while (_window->pollEvent(event))
-	{
-		if (event.type == sf::Event::Closed)
-			_window->close();
-	}
-	_window->clear();
-	buildBackround();
-	TimeManager& tm = TimeManager::GetInstance();
-	tm.Update();
-	for (AbstractEntity* const& it: _entities)
-	{
-		it->Update();
-		it->Draw(this);
-	}
-	_window->display();
-	*/
 }
 
 void Scene::SetWindow(sf::RenderWindow* w)
