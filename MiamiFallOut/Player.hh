@@ -9,7 +9,7 @@ public:
 	Player();
 	~Player();
 	virtual void Move() override;
-	virtual void Draw(IShapeManager*) override;
+	//virtual void Draw(sf::RenderWindow*) override;
 	Bullet *bullet;
 
 private:

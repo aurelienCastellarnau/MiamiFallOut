@@ -25,4 +25,6 @@ private:
 	ScoreManager* _score_manager;
 	void SetScene(Scene *scene);
 	void SetScoreManager(ScoreManager* score_manager);
+	const double FPS = 120;
+	const double ELAPSED_TIME_FPS = 1000 / FPS;
 };

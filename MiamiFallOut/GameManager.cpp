@@ -60,9 +60,11 @@ void GameManager::GameLoop() {
 		sf::Event event;
 		sf::Mouse::setPosition(sf::Vector2i(0, 0));
 
-		_scene->GetWindow()->clear();
-		_scene->buildBackround();
+		/*_scene->GetWindow()->clear();
+		_scene->buildBackround();*/
 		TimeManager::GetInstance().Start();
+
+		int count = 0;
 		while (this->GetScene()->GetWindow()->isOpen())
 		{
 
@@ -79,18 +81,16 @@ void GameManager::GameLoop() {
 
 			TimeManager& tm = TimeManager::GetInstance();
 			tm.Update();
-			TimeManager::GetInstance().Update();
-			unsigned int elapsedTime = TimeManager::GetInstance().GetStartedTime();
+			//TimeManager::GetInstance().Update();
+			unsigned int elapsedTime = tm.GetStartedTime();
 
-			GetScene()->GetWindow()->clear();
-			GetScene()->buildBackround();
-			_scene->Update();
-			_score_manager->Update();
-			GetScene()->GetWindow()->display();
+			
 
-			if (elapsedTime > 60) {
-				TimeManager::GetInstance().Start();
-				//std::cout << "\nFPS: " << elapsedTime;
+			if (elapsedTime > ELAPSED_TIME_FPS) {
+				GetScene()->GetWindow()->clear();
+				GetScene()->buildBackround();
+				_scene->Update();
+				_score_manager->Update();
 				for (ShapeEntity* const& it : _scene->GetEntities())
 				{
 					it->Move();
@@ -99,6 +99,12 @@ void GameManager::GameLoop() {
 					// it->Update();
 				}
 				GetScene()->GetWindow()->display();
+				if (count == 30) {
+					std::cout << "\nFPS: " << 1000 / tm.GetStartedTime();
+					count = 0;
+				}
+				tm.Start();
+				count++;
 			}
 
 			/*
