@@ -25,6 +25,10 @@ public:
 	virtual void Notify(IObservable* observable) override;
 	void buildBackround();
 
+	void PrepareFontMenu();
+
+	void DrawMenu();
+
 	~Scene();
 
 private:
@@ -34,4 +38,14 @@ private:
 	sf::Image _bg_image;
 	sf::Texture _bg_texture;
 	sf::Sprite _bg_sprite;
+	sf::Text _textWelcome;
+	sf::Text _textQuitOrBegin;
+	sf::Text _textHelpTip;
+	sf::Text _textScore;
+	std::string _stringMenu;
+	std::string _stringQuitOrBegin;
+	std::string _stringHelpTip;
+	std::string _score;
+	sf::Font _fontMenu;
+
 };
