@@ -22,6 +22,6 @@ private:
 	std::list<Bullet*> _bullets;
 	const int PLAYER_SPEED = 1;
 	const int ROTATION_SPEED = 5;
-	const unsigned int DELAY_BULLET = 300;
+	const unsigned int DELAY_BULLET = 200;
 };
 

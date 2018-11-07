@@ -33,7 +33,7 @@ public:
 	virtual double GetX() const;
 	virtual double GetY() const;
 	virtual void SetEntityType(std::string type) override;
-	virtual void SetX(double x);
+	virtual void SetX( double x);
 	virtual void SetY(double y);
 	virtual void SetCoordonates();
 

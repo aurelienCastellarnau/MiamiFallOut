@@ -80,17 +80,31 @@ void Player::Move()
 
 void Player::MovePlayerBullets() {
 	if (this->_bullets.size() > 0) {
-		std::cout << "NB_BULLET " << _bullets.size();
-		for (Bullet *bulletIterator : _bullets) {
-			if (float(bulletIterator->GetX() + (bulletIterator->GetCoeffX() * bulletIterator->BULLET_SPEED) + (bulletIterator->GetShape()->getLocalBounds().width / 2)) >= 1600
-				|| float(bulletIterator->GetX() + (bulletIterator->GetCoeffX() * bulletIterator->BULLET_SPEED) + (bulletIterator->GetShape()->getGlobalBounds().height / 2)) >= 800) {
-
-				this->_bullets.remove(bulletIterator);
-				continue;
-			}
-			else {
-				bulletIterator->Move();		
-				bulletIterator++;
+		for (std::list<Bullet*>::iterator bulletIterator = this->_bullets.begin(); bulletIterator != this->_bullets.end(); bulletIterator++) {
+			float coordX = float((*bulletIterator)->GetX() + ((*bulletIterator)->GetCoeffX() * (*bulletIterator)->BULLET_SPEED));
+			float coordY = float((*bulletIterator)->GetY() + ((*bulletIterator)->GetCoeffY() * (*bulletIterator)->BULLET_SPEED));
+			float bulletHeight = ((*bulletIterator)->GetShape()->getLocalBounds().height);
+			float bulletWidth = ((*bulletIterator)->GetShape()->getLocalBounds().width);
+			if (coordX < bulletWidth / 2 ||
+				coordX + (bulletWidth / 2) >= 1600 ||
+				coordY < (bulletHeight / 2) ||
+				coordY + (bulletHeight / 2) >= 800 ) {
+				if (this->_bullets.size() == 1 || bulletIterator == this->_bullets.end()) {
+					this->_bullets.erase(bulletIterator);
+					break;
+				}
+				else if (bulletIterator == this->_bullets.begin()) {
+					this->_bullets.erase(bulletIterator);
+					MovePlayerBullets();
+					break;
+				}
+				else {
+					std::list<Bullet*>::iterator bulletIteratorBefore = bulletIterator--;
+					this->_bullets.erase(bulletIterator);
+					bulletIterator = bulletIteratorBefore;
+				}
+			} else {
+				(*bulletIterator)->Move();
 			}
 		}
 	}

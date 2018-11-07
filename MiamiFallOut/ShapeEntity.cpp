@@ -78,7 +78,6 @@ void ShapeEntity::SetEntityType(std::string type)
 
 void ShapeEntity::SetX(double x)
 {
-
 	if (x < _shape->getLocalBounds().width / 2) {
 		_x = _shape->getLocalBounds().width / 2;
 	} else if (x + (_shape->getLocalBounds().width / 2) >= 1600 ) {

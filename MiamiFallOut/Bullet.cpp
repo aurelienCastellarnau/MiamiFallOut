@@ -77,6 +77,8 @@ void Bullet::Move()
 	this->SetX(float(this->GetX() + (_coeffX * BULLET_SPEED)));
 	this->SetY(float(this->GetY() + (_coeffY * BULLET_SPEED)));
 	SetCoordonates();
+	GameManager::GetInstance().GetScene()->GetWindow()->draw(*(this->GetShape()));
+
 }
 
 double Bullet::GetCoeffX() const
