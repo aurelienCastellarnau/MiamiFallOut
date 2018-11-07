@@ -8,12 +8,12 @@
 RectangleEntity::RectangleEntity()
 	: ShapeEntity()
 {
+	SetEntityType("RectangleEntity");
 }
 
-void RectangleEntity::Draw(IShapeManager* manager)
+void RectangleEntity::Draw(sf::RenderWindow* window)
 {
 	sf::Shape* s = GetShape();
-	sf::RenderWindow* window = manager->GetWindow();
 	window->draw(*s);
 }
 

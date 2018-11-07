@@ -20,23 +20,40 @@ void Scene::buildBackround()
 	_window->draw(_bg_sprite);
 }
 
-std::list<AbstractEntity*> Scene::GetEntities() const
+std::list<ShapeEntity*> Scene::GetEntities() const
 {
 	return _entities;
 }
 
-void Scene::AddEntity(AbstractEntity* const entity)
+void Scene::AddEntity(ShapeEntity* const entity)
 {
 	_entities.push_back(entity);
 }
 
-void Scene::RemoveEntity(AbstractEntity* const entity)
+void Scene::RemoveEntity(ShapeEntity* const entity)
 {
 	_entities.remove(entity);
 }
 
 void Scene::Update()
 {
+	/*
+	sf::Event event;
+	while (_window->pollEvent(event))
+	{
+		if (event.type == sf::Event::Closed)
+			_window->close();
+	}
+	_window->clear();
+	buildBackround();
+	TimeManager& tm = TimeManager::GetInstance();
+	tm.Update();
+	for (AbstractEntity* const& it: _entities)
+	{
+		it->Update();
+		_window->draw(*(it->GetShape()));
+	}
+	*/
 }
 
 void Scene::SetWindow(sf::RenderWindow* w)
