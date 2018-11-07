@@ -16,13 +16,12 @@ Enemy::Enemy()
 	this->SetY(0);
 	this->SetCoordonates();
 	this->GetRectangle()->setOrigin(sf::Vector2f(widthAndHeight / 2 , widthAndHeight / 2));
-	Scene &scene = *(GameManager::GetInstance().GetScene());
-	this->AddObserver(&scene);
-	GameManager::GetInstance().GetScene()->AddEntity(this);
 }
 
 void Enemy::Move() {
-	Player *player = dynamic_cast<Player*>(GameManager::GetInstance().GetScene()->GetEntities().front());
+	auto scene = GameManager::GetInstance().GetScene();
+	auto entities = scene->GetEntities();
+	Player *player = dynamic_cast<Player*>(entities.front());
 	float pX = player->GetX();
 	float pY = player->GetY();
 	float thisX = this->GetX();

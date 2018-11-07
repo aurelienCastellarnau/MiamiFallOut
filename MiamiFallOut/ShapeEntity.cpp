@@ -18,7 +18,7 @@ void ShapeEntity::Draw(IShapeManager* shapeManager) {
 }
 
 void ShapeEntity::Update() {
-
+	std::cout << "update shape entityµ..";
 }
 
 /*
@@ -37,7 +37,7 @@ void ShapeEntity::RemoveObserver(IObserver * observer)
 
 void ShapeEntity::OnNotify()
 {
-	std::cout << "\nNotify on ShapeEntity, X="<<GetX()<<" Y="<<GetY();
+	// std::cout << "\nNotify on ShapeEntity, X="<<GetX()<<" Y="<<GetY();
 }
 
 std::string& ShapeEntity::Serialize()

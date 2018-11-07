@@ -16,6 +16,7 @@ void CircleEntity::Draw(IShapeManager* manager)
 	sf::Shape* s = GetShape();
 	sf::RenderWindow* window = manager->GetWindow();
 	window->draw(*s);
+	std::cout << "Circle Entity";
 }
 
 void CircleEntity::Update()

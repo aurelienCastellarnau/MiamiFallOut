@@ -20,17 +20,17 @@ void Scene::buildBackround()
 	_window->draw(_bg_sprite);
 }
 
-std::list<AbstractEntity*> Scene::GetEntities() const
+std::list<ShapeEntity*> Scene::GetEntities() const
 {
 	return _entities;
 }
 
-void Scene::AddEntity(AbstractEntity* const entity)
+void Scene::AddEntity(ShapeEntity* const entity)
 {
 	_entities.push_back(entity);
 }
 
-void Scene::RemoveEntity(AbstractEntity* const entity)
+void Scene::RemoveEntity(ShapeEntity* const entity)
 {
 	_entities.remove(entity);
 }

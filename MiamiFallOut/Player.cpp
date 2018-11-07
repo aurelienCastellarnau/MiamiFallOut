@@ -30,10 +30,10 @@ Player::~Player()
 }
 
 void Player::Draw(IShapeManager* manager) {
+	/*if (this->bullet) {
 	sf::Shape* s = GetShape();
 	sf::RenderWindow* window = manager->GetWindow();
 	window->draw(*s);
-	/*if (this->bullet) {
 		this->bullet->Move();
 		window->draw(*(bullet->GetShape()));
 	}*/
