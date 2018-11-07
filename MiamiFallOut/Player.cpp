@@ -22,6 +22,9 @@ Player::Player()
 	_playerTexture.loadFromFile("../asset/player_MiamiFallout60x60.png", sf::IntRect(0, 0, 60, 60));
 	_playerTexture.setSmooth(true);
 	this->GetCircle()->setTexture(&_playerTexture, false);
+	_tm = new TimeManager();
+	_tm->Start();
+	_tm->Update();
 }
 
 
@@ -42,6 +45,7 @@ Player::~Player()
 
 void Player::Move()
 {
+	_tm->Update();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 		this->SetY(this->GetY() + PLAYER_SPEED);
 	}
@@ -66,8 +70,28 @@ void Player::Move()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 		this->GetCircle()->rotate(-5);
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		this->bullet = new Bullet(this);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && _tm->GetStartedTime() > DELAY_BULLET) {
+		this->_bullets.push_back(new Bullet(this));
+		_tm->Start();
 	}
 	this->SetCoordonates();
+	this->MovePlayerBullets();
 }
+
+void Player::MovePlayerBullets() {
+	if (this->_bullets.size() > 0) {
+		std::cout << "NB_BULLET " << _bullets.size();
+		for (Bullet *bulletIterator : _bullets) {
+			if (float(bulletIterator->GetX() + (bulletIterator->GetCoeffX() * bulletIterator->BULLET_SPEED) + (bulletIterator->GetShape()->getLocalBounds().width / 2)) >= 1600
+				|| float(bulletIterator->GetX() + (bulletIterator->GetCoeffX() * bulletIterator->BULLET_SPEED) + (bulletIterator->GetShape()->getGlobalBounds().height / 2)) >= 800) {
+
+				this->_bullets.remove(bulletIterator);
+				continue;
+			}
+			else {
+				bulletIterator->Move();		
+				bulletIterator++;
+			}
+		}
+	}
+};

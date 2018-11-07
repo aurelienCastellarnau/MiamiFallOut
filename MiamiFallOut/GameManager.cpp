@@ -6,6 +6,7 @@
 #include "CircleEntity.hh"
 #include "Player.hh"
 #include "Enemy.hh"
+#include <string>
 
 GameManager &GameManager::GetInstance() {
 	static GameManager _instance;
@@ -14,6 +15,7 @@ GameManager &GameManager::GetInstance() {
 
 GameManager::GameManager()
 {
+	srand(time(NULL));
 }
 
 
@@ -39,12 +41,10 @@ void GameManager::GameLoop() {
 	if (_init == false) {
 		_init = true;
 		EntityFactory *factory = new EntityFactory();
-
 		sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Miami Fall Out !");
-		Scene* scene = new Scene(&window);
-		ScoreManager* score_manager = new ScoreManager(&window);
+		_scene = new Scene(&window);
+
 		// La scene porte la window et observe les entitées
-		this->SetScene(scene);
 		_score_manager = new ScoreManager(&window);
 		Player *player = dynamic_cast<Player*>(factory->Create("Player"));
 		Enemy *enemy = dynamic_cast<Enemy*>(factory->Create("Enemy"));
@@ -53,42 +53,41 @@ void GameManager::GameLoop() {
 		this->_scene->AddEntity(player);
 		enemy->AddObserver(this->_scene);
 		this->_scene->AddEntity(enemy);
+		// settle font and text for FPS display
+		_fontFPS.loadFromFile("../asset/OpenSans-ExtraBold.ttf");
+		_textFPS.setFont(_fontFPS);
+		_textFPS.setCharacterSize(24);
+		_textFPS.setFillColor(sf::Color::Red);
 		// Start timer
 		_score_manager->AddEntity(player);
 		_score_manager->AddEntity(enemy);
-		TimeManager::GetInstance().Start();
 		sf::Event event;
 		sf::Mouse::setPosition(sf::Vector2i(0, 0));
 
-		/*_scene->GetWindow()->clear();
-		_scene->buildBackround();*/
-		TimeManager::GetInstance().Start();
-
+		//init one TimeManager
+		_tm = new TimeManager();;
+		_tm->Start();
+		std::string stringFPS = "";
 		int count = 0;
-		while (this->GetScene()->GetWindow()->isOpen())
+		while (_scene->GetWindow()->isOpen())
 		{
 
-			while (GetScene()->GetWindow()->pollEvent(event))
+			while (_scene->GetWindow()->pollEvent(event))
 			{
 				if (event.type == sf::Event::Closed || (event.KeyPressed && event.key.code == sf::Keyboard::Escape))
-					GetScene()->GetWindow()->close();
+					_scene->GetWindow()->close();
 			}
-			// Boucle de jeu avec frames réglées sur 60...
+			// Boucle de jeu avec frames réglées sur 120...
 			// Tout se fait au travers du pattern observer,
 			// changer x ou y déclenche l'update de la scene
 			// elle reconstruit son background et redessine
 			// le cercle...		
 
-			TimeManager& tm = TimeManager::GetInstance();
-			tm.Update();
-			//TimeManager::GetInstance().Update();
-			unsigned int elapsedTime = tm.GetStartedTime();
+			_tm->Update();
 
-			
-
-			if (elapsedTime > ELAPSED_TIME_FPS) {
-				GetScene()->GetWindow()->clear();
-				GetScene()->buildBackround();
+			if (_tm->GetStartedTime() > ELAPSED_TIME_FPS) {
+				_scene->GetWindow()->clear();
+				_scene->buildBackround();
 				_scene->Update();
 				_score_manager->Update();
 				for (ShapeEntity* const& it : _scene->GetEntities())
@@ -98,12 +97,14 @@ void GameManager::GameLoop() {
 					// it->Draw(GetScene());
 					// it->Update();
 				}
-				GetScene()->GetWindow()->display();
-				if (count == 30) {
-					std::cout << "\nFPS: " << 1000 / tm.GetStartedTime();
+				if (count == 8) {
+					stringFPS = std::to_string(1000 / _tm->GetStartedTime()) + " FPS";
+					_textFPS.setString(stringFPS);
 					count = 0;
 				}
-				tm.Start();
+				_scene->GetWindow()->draw(_textFPS);
+				_scene->GetWindow()->display();
+				_tm->Start();
 				count++;
 			}
 
@@ -122,3 +123,9 @@ void GameManager::GameLoop() {
 		}
 	}
 }
+
+unsigned int GameManager::GetRandomInt(int a, int b)
+{
+	return rand() % (b - a) + a;
+}
+

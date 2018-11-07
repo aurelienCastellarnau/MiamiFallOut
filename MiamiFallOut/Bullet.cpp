@@ -24,7 +24,7 @@ Bullet::Bullet(Player *player) : CircleEntity()
 	this->SetCoordonates();
 	Scene &scene = *(GameManager::GetInstance().GetScene());
 	//this->AddObserver(&scene);
-	GameManager::GetInstance().GetScene()->AddEntity(this);
+	//GameManager::GetInstance().GetScene()->AddEntity(this);
 }
 
 
@@ -79,7 +79,7 @@ void Bullet::Move()
 	SetCoordonates();
 }
 
-double Bullet::GetCoeffX()
+double Bullet::GetCoeffX() const
 {
 	return _coeffX;
 }
@@ -89,7 +89,7 @@ void Bullet::SetCoeffX(double coeff)
 	_coeffX = coeff;
 }
 
-double Bullet::GetCoeffY()
+double Bullet::GetCoeffY() const
 {
 	return _coeffY;
 }
@@ -99,7 +99,7 @@ void Bullet::SetCoeffY(double coeff)
 	_coeffY = coeff;
 }
 
-double Bullet::GetAxe()
+double Bullet::GetAxe() const
 {
 	return _axe;
 }

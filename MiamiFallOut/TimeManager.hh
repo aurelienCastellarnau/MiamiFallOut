@@ -12,11 +12,7 @@ public:
 
 	// Singleton accessor
 	// Singleton accessor (public)
-	static TimeManager & GetInstance()
-	{
-		static TimeManager _instance;
-		return _instance;
-	}
+	TimeManager();
 
 	/*
 	Methods
@@ -34,7 +30,6 @@ public:
 	TimeManager &operator=(const TimeManager &) = delete;
 
 private:
-	TimeManager();
 	
 
 	/*
