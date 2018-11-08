@@ -119,12 +119,21 @@ void GameManager::GameLoop() {
 		_tm = new TimeManager();;
 		_tm->Start();
 		int count = 0;
+
 		while (window_ptr->isOpen() && !_score_manager->GetEndCondition())
 		{
 			if (_event.type == sf::Event::Closed || (_event.KeyPressed && _event.key.code == sf::Keyboard::Escape))
 				MenuLoop(window_ptr, true);
 			_tm->Update();
 			if (player != NULL && _tm->GetStartedTime() > ELAPSED_TIME_FPS) {
+				int pop = GetRandomInt(1, 100);
+				if (pop == 42)
+				{
+					Enemy* new_ennemi = dynamic_cast<Enemy*>(factory->Create("Enemy"));
+					new_ennemi->AddObserver(_scene);
+					_scene->AddEntity(new_ennemi);
+					_score_manager->AddEntity(new_ennemi);
+				}
 				window_ptr->clear();
 				_scene->buildBackround();
 				_scene->Update();
@@ -141,9 +150,9 @@ void GameManager::GameLoop() {
 					delete _scene;
 				}
 				else if (player != NULL) {
-					for (ShapeEntity* const& it : _scene->GetEntities())
+					for (ShapeEntity* it : _scene->GetEntities())
 					{
-						if (!it->isPlayer() && it->GetIntersect())
+						if (it != NULL && !it->isPlayer() && it->GetIntersect())
 						{
 							_score_manager->SetScore(_score_manager->GetScore() + 1);
 							it->RemoveObserver(_scene);
@@ -159,8 +168,6 @@ void GameManager::GameLoop() {
 							window_ptr->draw(*(it->GetShape()));
 						}
 					}
-				}
-				else {
 				}
 				if (count == 8) {
 					stringFPS = std::to_string(1000 / _tm->GetStartedTime()) + " FPS";
