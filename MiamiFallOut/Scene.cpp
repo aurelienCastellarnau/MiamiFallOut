@@ -67,6 +67,19 @@ std::list<ShapeEntity*> Scene::GetEntities() const
 {
 	return _entities;
 }
+ 
+Player* Scene::GetPlayer() const
+{
+	for (ShapeEntity* it : _entities)
+	{
+		if (it->isPlayer())
+		{
+			Player* player = dynamic_cast<Player*>(it);
+			return player;
+		}
+	}
+	return NULL;
+}
 
 void Scene::AddEntity(ShapeEntity* const entity)
 {

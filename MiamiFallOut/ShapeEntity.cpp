@@ -8,6 +8,7 @@ ShapeEntity implementation
 */
 ShapeEntity::ShapeEntity() : IObservable()
 {
+	_intersect = false;
 }
 
 /*
@@ -18,7 +19,6 @@ void ShapeEntity::Draw(sf::RenderWindow* w) {
 }
 
 void ShapeEntity::Update() {
-	std::cout << "update shape entityµ..";
 }
 
 /*
@@ -51,6 +51,11 @@ std::string ShapeEntity::GetEntityType() const
 	return _entity_type;
 }
 
+bool ShapeEntity::isPlayer() const
+{
+	return _entity_type == "player";
+}
+
 sf::Shape* ShapeEntity::GetShape() const
 {
 	return _shape;
@@ -69,6 +74,11 @@ double ShapeEntity::GetX() const
 double ShapeEntity::GetY() const
 {
 	return _y;
+}
+
+bool ShapeEntity::GetIntersect() const
+{
+	return _intersect;
 }
 
 void ShapeEntity::SetEntityType(std::string type)
@@ -108,6 +118,11 @@ void ShapeEntity::SetY(double y)
 	{
 		it->Notify(this);
 	}
+}
+
+void ShapeEntity::SetIntersect(bool intersect)
+{
+	_intersect = intersect;
 }
 
 void ShapeEntity::SetCoordonates()
