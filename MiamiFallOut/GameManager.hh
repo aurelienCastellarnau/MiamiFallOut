@@ -35,7 +35,7 @@ private:
 	void SetScene(Scene *scene);
 	void SetScoreManager(ScoreManager* score_manager);
 	void GameLoop();
-	void MenuLoop(sf::RenderWindow *);
+	void MenuLoop(sf::RenderWindow *, bool endGame = false);
 	const double FPS = 120;
 	const double ELAPSED_TIME_FPS = 1000 / FPS;
 };

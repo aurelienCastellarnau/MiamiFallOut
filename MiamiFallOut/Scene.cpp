@@ -9,7 +9,7 @@ Scene::Scene() {}
 Scene::Scene(sf::RenderWindow* window)
 {
 	_window = window;
-	_bg_image.loadFromFile("../asset/beach.png");
+	_bg_image.loadFromFile("asset/beach.png");
 	_bg_texture.create(WINDOW_WIDTH, WINDOW_HEIGHT);
 	_bg_texture.update(_bg_image);
 	_bg_sprite.setTexture(_bg_texture);
@@ -21,7 +21,7 @@ void Scene::buildBackround()
 }
 
 void Scene::PrepareFontMenu() {
-	this->_fontMenu.loadFromFile("../asset/OpenSans-ExtraBold.ttf");
+	this->_fontMenu.loadFromFile("asset/OpenSans-ExtraBold.ttf");
 	this->_stringMenu = "WELCOME IN MIAMI FALLOUT";
 	this->_stringQuitOrBegin = "Press Space Bar to launch the Game OR press escape to quit.";
 	this->_stringHelpTip = "In Game: ZQSD to move, LEFT and RIGHT arrow to rotate, SPACE BAR to shoot";

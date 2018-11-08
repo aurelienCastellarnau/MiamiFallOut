@@ -6,7 +6,7 @@
 #include "CircleEntity.hh"
 #include "Player.hh"
 #include "Enemy.hh"
-#include <string>
+#include <string> 
 
 GameManager &GameManager::GetInstance() {
 	static GameManager _instance;
@@ -37,32 +37,39 @@ void GameManager::GameStart()
 	MenuLoop(&window);
 }
 
-void GameManager::MenuLoop(sf::RenderWindow* window) {
-	this->_gameStarted = false;
-	this->_init = false;
-	this->_scene = new Scene(window);
-	this->_scene->PrepareFontMenu();
+void GameManager::MenuLoop(sf::RenderWindow* window, bool endGame) {
+	if (endGame == false) {
+		this->_gameStarted = false;
+		this->_init = false;
+		this->_scene = new Scene(window);
+		this->_scene->PrepareFontMenu();
 
 
-	while (this->_scene->GetWindow()->isOpen() && this->_gameStarted == false)
-	{
-		while (this->_scene->GetWindow()->pollEvent(this->_event))
+		while (this->_scene->GetWindow()->isOpen() && this->_gameStarted == false)
 		{
-			if (this->_event.type == sf::Event::Closed || (this->_event.KeyPressed && this->_event.key.code == sf::Keyboard::Escape))
-				this->_scene->GetWindow()->close();
-			if (this->_event.KeyPressed && this->_event.key.code == sf::Keyboard::Space)
-				this->_gameStarted = true;
+			while (this->_scene->GetWindow()->pollEvent(this->_event))
+			{
+				if (this->_event.type == sf::Event::Closed || (this->_event.KeyPressed && this->_event.key.code == sf::Keyboard::Escape)) {
+					this->_scene->GetWindow()->close();
+					endGame = true;
+				}
+				if (this->_event.KeyPressed && this->_event.key.code == sf::Keyboard::Space)
+					this->_gameStarted = true;
+			}
+			this->_scene->GetWindow()->clear();
+			this->_scene->DrawMenu();
+			this->_scene->GetWindow()->display();
 		}
-		this->_scene->GetWindow()->clear();
-		this->_scene->DrawMenu();
-		this->_scene->GetWindow()->display();
+		if (endGame == false) {
+			this->GameLoop();
+		}
 	}
-	this->GameLoop();
 }
 
 
 void GameManager::GameLoop() {
 	if (_init == false) {
+		bool endGame = false;
 		_init = true;
 		EntityFactory *factory = new EntityFactory();
 		// La scene porte la window et observe les entitées
@@ -75,7 +82,7 @@ void GameManager::GameLoop() {
 		enemy->AddObserver(this->_scene);
 		this->_scene->AddEntity(enemy);
 		// settle font and text for FPS display
-		this->_fontFPS.loadFromFile("../asset/OpenSans-ExtraBold.ttf");
+		this->_fontFPS.loadFromFile("asset/OpenSans-ExtraBold.ttf");
 		this->_textFPS.setFont(_fontFPS);
 		this->_textFPS.setCharacterSize(24);
 		this->_textFPS.setFillColor(sf::Color::Red);
@@ -93,8 +100,10 @@ void GameManager::GameLoop() {
 		{
 			while (_scene->GetWindow()->pollEvent(_event))
 			{
-				if (_event.type == sf::Event::Closed || (_event.KeyPressed && _event.key.code == sf::Keyboard::Escape))
+				if (_event.type == sf::Event::Closed || (_event.KeyPressed && _event.key.code == sf::Keyboard::Escape)) {
 					_scene->GetWindow()->close();
+					endGame = true;
+				}
 			}
 			// Boucle de jeu avec frames réglées sur 120...
 			// Tout se fait au travers du pattern observer,
@@ -125,8 +134,8 @@ void GameManager::GameLoop() {
 				count++;
 			}
 		}
+		MenuLoop(GetScene()->GetWindow(), endGame);
 	}
-	MenuLoop(GetScene()->GetWindow());
 }
 
 

@@ -3,6 +3,7 @@
 #include "Bullet.hh"
 #include "TimeManager.hh"
 
+
 class Bullet;
 class TimeManager;
 class Player : public CircleEntity

@@ -19,7 +19,7 @@ Player::Player()
 	Scene &scene = *(GameManager::GetInstance().GetScene());
 	this->AddObserver(&scene);
 	GameManager::GetInstance().GetScene()->AddEntity(this);
-	_playerTexture.loadFromFile("../asset/player_MiamiFallout60x60.png", sf::IntRect(0, 0, 60, 60));
+	_playerTexture.loadFromFile("asset/player_MiamiFallout60x60.png", sf::IntRect(0, 0, 60, 60));
 	_playerTexture.setSmooth(true);
 	this->GetCircle()->setTexture(&_playerTexture, false);
 	_tm = new TimeManager();
