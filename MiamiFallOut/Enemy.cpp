@@ -6,23 +6,23 @@
 
 Enemy::Enemy()
 {
-	int widthAndHeight = TimeManager::GetInstance().GetRandomInt(30, 150);
+	this->SetEntityType("enemy");
+	int widthAndHeight = GameManager::GetInstance().GetRandomInt(30, 150);
 	this->SetRectangle(
 		widthAndHeight,
 		widthAndHeight,
-		sf::Color(TimeManager::GetInstance().GetRandomInt(0, 255), TimeManager::GetInstance().GetRandomInt(0, 255), TimeManager::GetInstance().GetRandomInt(0, 255), 255));
+		sf::Color(GameManager::GetInstance().GetRandomInt(0, 255), GameManager::GetInstance().GetRandomInt(0, 255), GameManager::GetInstance().GetRandomInt(0, 255), 255));
 	float width = this->GetRectangle()->getLocalBounds().width;
-	this->SetX(TimeManager::GetInstance().GetRandomInt(0, WINDOW_WIDTH - widthAndHeight));
+	this->SetX(GameManager::GetInstance().GetRandomInt(0, WINDOW_WIDTH - widthAndHeight));
 	this->SetY(0);
 	this->SetCoordonates();
 	this->GetRectangle()->setOrigin(sf::Vector2f(widthAndHeight / 2 , widthAndHeight / 2));
-	Scene &scene = *(GameManager::GetInstance().GetScene());
-	this->AddObserver(&scene);
-	GameManager::GetInstance().GetScene()->AddEntity(this);
 }
 
 void Enemy::Move() {
-	Player *player = dynamic_cast<Player*>(GameManager::GetInstance().GetScene()->GetEntities().front());
+	auto scene = GameManager::GetInstance().GetScene();
+	auto entities = scene->GetEntities();
+	Player *player = dynamic_cast<Player*>(entities.front());
 	float pX = player->GetX();
 	float pY = player->GetY();
 	float thisX = this->GetX();

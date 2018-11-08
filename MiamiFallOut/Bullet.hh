@@ -13,20 +13,20 @@ public:
 	void GetBulletDirection();
 	virtual void Move() override;
 
-	double GetAxe();
+	double GetAxe() const;
 	void SetAxe(double Axe);
 
-	double GetCoeffX();
+	double GetCoeffX() const;
 	void SetCoeffX(double coeff);
 
-	double GetCoeffY();
+	double GetCoeffY() const;
 	void SetCoeffY(double coeff);
+	const int BULLET_SPEED = 10;
 
 private:
 	double _axe;
 	double _coeffX;
 	double _coeffY;
 	void CalculateAndSetAxe(int rotation);
-	const int BULLET_SPEED = 1;
 };
 

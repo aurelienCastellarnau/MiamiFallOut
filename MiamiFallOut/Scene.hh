@@ -1,6 +1,6 @@
 #pragma once
 #include "stdafx.h"
-#include "AbstractEntity.hh"
+#include "ShapeEntity.hh"
 #include "IShapeManager.hh"
 #include "IObserver.hh"
 
@@ -12,9 +12,9 @@ public:
 	Scene();
 	Scene(sf::RenderWindow*);
 	
-	std::list<AbstractEntity*> GetEntities() const;
-	void AddEntity(AbstractEntity* const entity);
-	void RemoveEntity(AbstractEntity* const entity);
+	std::list<ShapeEntity*> GetEntities() const;
+	void AddEntity(ShapeEntity* const entity);
+	void RemoveEntity(ShapeEntity* const entity);
 	void Update();
 
 	// IShapeManager implementation
@@ -25,13 +25,27 @@ public:
 	virtual void Notify(IObservable* observable) override;
 	void buildBackround();
 
+	void PrepareFontMenu();
+
+	void DrawMenu();
+
 	~Scene();
 
 private:
 
-	std::list<AbstractEntity*> _entities;
+	std::list<ShapeEntity*> _entities;
 	sf::RenderWindow* _window;
 	sf::Image _bg_image;
 	sf::Texture _bg_texture;
 	sf::Sprite _bg_sprite;
+	sf::Text _textWelcome;
+	sf::Text _textQuitOrBegin;
+	sf::Text _textHelpTip;
+	sf::Text _textScore;
+	std::string _stringMenu;
+	std::string _stringQuitOrBegin;
+	std::string _stringHelpTip;
+	std::string _score;
+	sf::Font _fontMenu;
+
 };

@@ -13,12 +13,12 @@ ShapeEntity::ShapeEntity() : IObservable()
 /*
  AbstractEntity implementation
 */
-void ShapeEntity::Draw(IShapeManager* shapeManager) {
+void ShapeEntity::Draw(sf::RenderWindow* w) {
 
 }
 
 void ShapeEntity::Update() {
-
+	std::cout << "update shape entityµ..";
 }
 
 /*
@@ -37,13 +37,18 @@ void ShapeEntity::RemoveObserver(IObserver * observer)
 
 void ShapeEntity::OnNotify()
 {
-	std::cout << "\nNotify on ShapeEntity, X="<<GetX()<<" Y="<<GetY();
+	// std::cout << "\nNotify on ShapeEntity, X="<<GetX()<<" Y="<<GetY();
 }
 
 std::string& ShapeEntity::Serialize()
 {
 	std::string ret = "ShapeEntity";
 	return ret;
+}
+
+std::string ShapeEntity::GetEntityType() const
+{
+	return _entity_type;
 }
 
 sf::Shape* ShapeEntity::GetShape() const
@@ -66,9 +71,13 @@ double ShapeEntity::GetY() const
 	return _y;
 }
 
+void ShapeEntity::SetEntityType(std::string type)
+{
+	_entity_type = type;
+}
+
 void ShapeEntity::SetX(double x)
 {
-
 	if (x < _shape->getLocalBounds().width / 2) {
 		_x = _shape->getLocalBounds().width / 2;
 	} else if (x + (_shape->getLocalBounds().width / 2) >= 1600 ) {
