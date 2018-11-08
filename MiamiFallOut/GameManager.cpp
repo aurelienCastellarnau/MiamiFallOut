@@ -61,7 +61,7 @@ void GameManager::MenuLoop(sf::RenderWindow* window, bool restart) {
 				{
 					this->_scene->GetWindow()->close();
 				}
-				if (this->_event.KeyPressed && this->_event.key.code == sf::Keyboard::Space)
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 				{
 					_gameStarted = true;
 				}

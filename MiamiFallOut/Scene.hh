@@ -44,10 +44,13 @@ private:
 	sf::Text _textQuitOrBegin;
 	sf::Text _textHelpTip;
 	sf::Text _textScore;
+	sf::Text _textLolCage;
 	std::string _stringMenu;
 	std::string _stringQuitOrBegin;
 	std::string _stringHelpTip;
+	std::string _stringLolCage;
 	std::string _score;
 	sf::Font _fontMenu;
+	sf::Font _lolFontMenu;
 
 };
