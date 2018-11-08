@@ -6,5 +6,8 @@ public:
 	Enemy();
 	virtual void Move() override;
 	~Enemy();
+private:
+	sf::Texture _enemyTexture;
+	const int ENEMY_SPEED = 4;
 };
 

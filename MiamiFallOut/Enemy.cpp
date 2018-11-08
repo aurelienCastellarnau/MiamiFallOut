@@ -17,6 +17,9 @@ Enemy::Enemy()
 	this->SetY(0);
 	this->SetCoordonates();
 	this->GetRectangle()->setOrigin(sf::Vector2f(widthAndHeight / 2 , widthAndHeight / 2));
+	_enemyTexture.loadFromFile("asset/nCage.png", sf::IntRect(0, 0, 300, 300));
+	_enemyTexture.setSmooth(true);
+	this->GetRectangle()->setTexture(&_enemyTexture, false);
 }
 
 void Enemy::Move() {
@@ -28,22 +31,22 @@ void Enemy::Move() {
 	float thisX = this->GetX();
 	float thisY = this->GetY();
 
-	if (abs(thisX - pX) > 0 && abs(thisX - pX) < 3) {
+	if (abs(thisX - pX) > 0 && abs(thisX - pX) < ENEMY_SPEED) {
 		this->SetX(pX);
 	} else if (thisX < pX) {
-		this->SetX(thisX + 3);
+		this->SetX(thisX + ENEMY_SPEED);
 	}
 	else if (thisX > pX) {
-		this->SetX(thisX - 3);
+		this->SetX(thisX - ENEMY_SPEED);
 	}
 	
-	if (abs(thisY - pY) > 0 && abs(thisY - pY) < 3) {
+	if (abs(thisY - pY) > 0 && abs(thisY - pY) < ENEMY_SPEED) {
 		this->SetY(pY);
 	} else if (thisY < pY) {
-		this->SetY(thisY + 3);
+		this->SetY(thisY + ENEMY_SPEED);
 	}
 	else if (thisY > pY) {
-		this->SetY(thisY - 3);
+		this->SetY(thisY - ENEMY_SPEED);
 	}
 	this->SetCoordonates();
 }
