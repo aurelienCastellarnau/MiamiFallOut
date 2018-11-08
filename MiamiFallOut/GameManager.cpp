@@ -121,7 +121,6 @@ int GameManager::enemyPoper(int pop_boundary)
 	// 100 FPS, toute les 30 secondes, on augmente les chances de pop
 	if (frames_update == 3000)
 	{
-		std::cout << "3000 frames update";
 		frames_update = 0;
 		pop_boundary++;
 		if (pop_boundary > 100)
@@ -181,27 +180,19 @@ void GameManager::SetWindow(sf::RenderWindow* win)
 	_win = win;
 }
 
-int GameManager::makeAFrame(sf::RenderWindow* window_ptr, int pop_boundary)
+void GameManager::makeAFrame(sf::RenderWindow* window_ptr)
 {
 	static int count = 0;
 
-	// on fait poper aléatoirement des méchants
-	pop_boundary = enemyPoper(pop_boundary);
-	// window rebuild
-	window_ptr->clear();
-	_scene->buildBackround();
-	// Observers update
-	_scene->Update();
-	_score_manager->Update();
 	// retrieve the player or NULL
 	Player* player = GetPlayer();
 	// check player defeat
-	if (player != NULL && player->IsCatched())
+	if (player->IsCatched())
 	{
 		// remove player, delete player and _scene
 		playerIsCatched(player);
 	}
-	else if (player != NULL) {
+	else {
 		// remove killed enemies
 		checkEnemiesHit();
 	}
@@ -215,7 +206,6 @@ int GameManager::makeAFrame(sf::RenderWindow* window_ptr, int pop_boundary)
 	window_ptr->display();
 	_tm->Start();
 	count++;
-	return pop_boundary;
 }
 
 void GameManager::gameLoop() {
@@ -247,8 +237,19 @@ void GameManager::gameLoop() {
 		if (_event.type == sf::Event::Closed || (_event.KeyPressed && _event.key.code == sf::Keyboard::Escape))
 			menuLoop(window_ptr, true);
 		_tm->Update();
-		if (player != NULL && _tm->GetStartedTime() > ELAPSED_TIME_FPS) {
-			pop_boundary = makeAFrame(window_ptr, pop_boundary);
+		if ( _tm->GetStartedTime() > ELAPSED_TIME_FPS) {
+			// on fait poper aléatoirement des méchants
+			pop_boundary = enemyPoper(pop_boundary);
+			// window rebuild
+			window_ptr->clear();
+			_scene->buildBackround();
+			if (player != NULL)
+			{
+				makeAFrame(window_ptr);
+				// Observers update
+				_scene->Update();
+				_score_manager->Update();
+			}
 		}
 	}
 	menuLoop(window_ptr, _score_manager->GetEndCondition());

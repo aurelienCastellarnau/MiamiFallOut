@@ -44,7 +44,7 @@ private:
 	void playerIsCatched(Player* p);
 	void checkEnemiesHit();
 	int enemyPoper(int pop_boundary);
-	int makeAFrame(sf::RenderWindow* window_ptr, int pop_boundary);
+	void makeAFrame(sf::RenderWindow* window_ptr);
 
 	GameManager(const GameManager &);
 	GameManager();
