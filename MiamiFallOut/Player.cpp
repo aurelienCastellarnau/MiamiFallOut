@@ -7,7 +7,7 @@
 #include "ShapeEntity.hh"
 #include "Bullet.hh"
 
-Player::Player()
+Player::Player(): CircleEntity()
 {
 	this->SetEntityType("player");
 	this->SetCircle(30.0f, 100, sf::Color(255,255,255,255));
@@ -109,3 +109,17 @@ void Player::MovePlayerBullets() {
 		}
 	}
 };
+
+bool Player::IsCatched() const {
+	return this->GetIntersect();
+}
+
+std::list<Bullet*> Player::GetBullets() const
+{
+	return _bullets;
+}
+
+void Player::RemoveBullet(Bullet* bullet)
+{
+	_bullets.remove(bullet);
+}

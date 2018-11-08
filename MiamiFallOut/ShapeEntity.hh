@@ -27,14 +27,17 @@ public:
 	virtual ~ShapeEntity() = 0;
 
 	virtual std::string GetEntityType() const override;
+	bool isPlayer() const;
 	virtual sf::Shape* GetShape() const override;
 	virtual void SetShape(sf::Shape*);
 
 	virtual double GetX() const;
 	virtual double GetY() const;
+	bool GetIntersect() const;
 	virtual void SetEntityType(std::string type) override;
 	virtual void SetX( double x);
 	virtual void SetY(double y);
+	void SetIntersect(bool intersect);
 	virtual void SetCoordonates();
 
 private:
@@ -43,5 +46,6 @@ private:
 	sf::Shape* _shape;
 	std::string _entity_type;
 	std::list<IObserver*> _observers;
+	bool _intersect;
 };
 
