@@ -24,8 +24,8 @@ private:
 	sf::Sprite _playerSprite;
 	TimeManager* _tm;
 	std::list<Bullet*> _bullets;
-	const int PLAYER_SPEED = 1;
-	const int ROTATION_SPEED = 5;
+	const int PLAYER_SPEED = 2;
+	const int ROTATION_SPEED = 2;
 	const unsigned int DELAY_BULLET = 200;
 };
 
