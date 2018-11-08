@@ -3,6 +3,7 @@ const unsigned int WINDOW_WIDTH(1600);
 const unsigned int WINDOW_HEIGHT(800);
 #include "Scene.hh"
 #include "Player.hh"
+#include "Enemy.hh"
 #include "ScoreManager.hh"
 #include "TimeManager.hh"
 
@@ -37,13 +38,21 @@ private:
 	TimeManager* _tm;
 	sf::Event _event;
 
+	void settleText();
+	void settleObserverPlayer(Player* p);
+	void settleObserverEnemy(Enemy* e);
+	void playerIsCatched(Player* p);
+	void checkEnemiesHit();
+	int enemyPoper(int pop_boundary);
+	int makeAFrame(sf::RenderWindow* window_ptr, int pop_boundary);
+
 	GameManager(const GameManager &);
 	GameManager();
 	GameManager &operator=(const GameManager &);
-	void SetScene(Scene *scene);
-	void SetScoreManager(ScoreManager* score_manager);
-	void GameLoop();
-	void MenuLoop(sf::RenderWindow *, bool endGame = false);
+	void setScene(Scene *scene);
+	void setScoreManager(ScoreManager* score_manager);
+	void gameLoop();
+	void menuLoop(sf::RenderWindow *, bool endGame = false);
 	const double FPS = 120;
 	const double ELAPSED_TIME_FPS = 1000 / FPS;
 	int _score;

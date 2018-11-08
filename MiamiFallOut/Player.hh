@@ -17,6 +17,7 @@ public:
 	std::list<Bullet*>GetBullets() const;
 	void RemoveBullet(Bullet* bullet);
 	bool IsCatched() const;
+	int GetBulletSize() const;
 
 private:
 	sf::Image _playerImage;

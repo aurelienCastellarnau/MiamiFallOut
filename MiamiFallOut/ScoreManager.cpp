@@ -102,6 +102,7 @@ void ScoreManager::Update()
 			// on extrait sa forme et ses bordures
 			sf::Shape* shape_enemy = in_it->GetShape();
 			sf::FloatRect bounds_enemy = shape_enemy->getGlobalBounds();
+			std::cout << "num ber of bullets in player: " << player->GetBulletSize();
 			// on vérifie si une balle l'a touché
 			for (ShapeEntity* it_bullet : player->GetBullets())
 			{
