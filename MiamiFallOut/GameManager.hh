@@ -8,6 +8,7 @@ const unsigned int WINDOW_HEIGHT(800);
 #include "TimeManager.hh"
 
 class TimeManager;
+class ScoreManager;
 class GameManager
 {
 public:
@@ -19,11 +20,13 @@ public:
 	Player* GetPlayer() const;
 	int GetScore() const;
 	void SetScore(int score);
+	bool GetHasScored();
 	void MoveLaunch();
 	void GameStart();
 	Scene* GetScene() const;
 	sf::RenderWindow* GetWindow() const;
 	void SetWindow(sf::RenderWindow* win);
+	ScoreManager* GetScoreManager();
 
 private:
 	bool _init;
@@ -56,4 +59,5 @@ private:
 	const double FPS = 120;
 	const double ELAPSED_TIME_FPS = 1000 / FPS;
 	int _score;
+	int _hasScored;
 };

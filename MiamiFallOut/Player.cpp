@@ -65,13 +65,16 @@ void Player::Move()
 		this->GetCircle()->rotate(180);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		this->GetCircle()->rotate(5);
+		this->GetCircle()->rotate(ROTATION_SPEED);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		this->GetCircle()->rotate(-5);
+		this->GetCircle()->rotate(-ROTATION_SPEED);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && _tm->GetStartedTime() > DELAY_BULLET) {
 		this->_bullets.push_back(new Bullet(this));
+		if (GameManager::GetInstance().GetScoreManager()->GetScore() > 0) {
+			GameManager::GetInstance().GetScoreManager()->SetScore(GameManager::GetInstance().GetScoreManager()->GetScore() - 2);
+		}
 		_tm->Start();
 	}
 	this->SetCoordonates();
