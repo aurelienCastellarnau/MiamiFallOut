@@ -49,6 +49,7 @@ int ScoreManager::GetScore() const
 
 void ScoreManager::SetScore(int score)
 {
+	GameManager::GetInstance().SetScore(score);
 	_score = score;
 }
 
@@ -110,7 +111,7 @@ void ScoreManager::Update()
 				sf::FloatRect bullet_bound = bullet_shape->getGlobalBounds();
 				if (bullet_bound.intersects(bounds_enemy))
 				{
-					_score++;
+					SetScore(_score += 50);
 					_hit++;
 					in_it->SetIntersect(true);
 					player->RemoveBullet(bullet);

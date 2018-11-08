@@ -34,6 +34,11 @@ void GameManager::SetScore(int score)
 	_score = score;
 }
 
+bool GameManager::GetHasScored()
+{
+	return _hasScored;
+}
+
 void GameManager::setScene(Scene *scene) {
 	this->_scene = scene;
 }
@@ -62,6 +67,7 @@ void GameManager::settleText()
 	_textScore.setFont(_font);
 	_textScore.setCharacterSize(35);
 	_textScore.setFillColor(sf::Color::White);
+	_textScore.setPosition(600, 10);
 }
 
 void GameManager::settleObserverPlayer(Player* player)
@@ -98,7 +104,6 @@ void GameManager::checkEnemiesHit()
 	{
 		if (it != NULL && !it->isPlayer() && it->GetIntersect())
 		{
-			_score_manager->SetScore(_score_manager->GetScore() + 1);
 			it->RemoveObserver(_scene);
 			it->RemoveObserver(_score_manager);
 			_scene->RemoveEntity(it);
@@ -118,8 +123,8 @@ int GameManager::enemyPoper(int pop_boundary)
 {
 	static int frames_update;
 	EntityFactory *factory = new EntityFactory();
-	// 100 FPS, toute les 30 secondes, on augmente les chances de pop
-	if (frames_update == 3000)
+	// 100 FPS, toute les 15 secondes, on augmente les chances de pop
+	if (frames_update == 1500)
 	{
 		frames_update = 0;
 		pop_boundary++;
@@ -154,7 +159,7 @@ void GameManager::menuLoop(sf::RenderWindow* window, bool restart) {
 				{
 					this->_scene->GetWindow()->close();
 				}
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 				{
 					_gameStarted = true;
 				}
@@ -170,15 +175,7 @@ void GameManager::menuLoop(sf::RenderWindow* window, bool restart) {
 	}
 }
 
-Player* GameManager::GetPlayer() const
-{
-	return _scene->GetPlayer();
-}
 
-void GameManager::SetWindow(sf::RenderWindow* win)
-{
-	_win = win;
-}
 
 void GameManager::makeAFrame(sf::RenderWindow* window_ptr)
 {
@@ -200,7 +197,7 @@ void GameManager::makeAFrame(sf::RenderWindow* window_ptr)
 		_textFPS.setString(std::to_string(1000 / _tm->GetStartedTime()) + " FPS");
 		count = 0;
 	}
-	_textScore.setString("Score: " + std::to_string(_score_manager->GetScore()) + " shots");
+	_textScore.setString("Score: " + std::to_string(_score_manager->GetScore()));
 	window_ptr->draw(_textScore);
 	window_ptr->draw(_textFPS);
 	window_ptr->display();
@@ -212,15 +209,13 @@ void GameManager::gameLoop() {
 	// 
 	EntityFactory *factory = new EntityFactory();
 	sf::RenderWindow* window_ptr = _scene->GetWindow();
-
+	_hasScored = true;
 	// La scene porte la window et observe les entitées
 	_score_manager = new ScoreManager(window_ptr);
 	Player *player = dynamic_cast<Player*>(factory->Create("Player"));
-	Enemy *enemy = dynamic_cast<Enemy*>(factory->Create("Enemy"));
 	// settle text parts
 	settleText();
 	settleObserverPlayer(player);
-	settleObserverEnemy(enemy);
 
 	// ?
 	sf::Mouse::setPosition(sf::Vector2i(0, 0));
@@ -256,7 +251,21 @@ void GameManager::gameLoop() {
 }
 
 
+Player* GameManager::GetPlayer() const
+{
+	return _scene->GetPlayer();
+}
+
+void GameManager::SetWindow(sf::RenderWindow* win)
+{
+	_win = win;
+}
+
 unsigned int GameManager::GetRandomInt(int a, int b)
 {
 	return rand() % (b - a) + a;
+}
+
+ScoreManager* GameManager::GetScoreManager() {
+	return this->_score_manager;
 }
