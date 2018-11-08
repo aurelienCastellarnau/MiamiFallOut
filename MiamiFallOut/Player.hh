@@ -15,6 +15,7 @@ public:
 	//virtual void Draw(sf::RenderWindow*) override;
 	void MovePlayerBullets();
 	std::list<Bullet*>GetBullets() const;
+	void RemoveBullet(Bullet* bullet);
 	bool IsCatched() const;
 
 private:

@@ -118,3 +118,8 @@ std::list<Bullet*> Player::GetBullets() const
 {
 	return _bullets;
 }
+
+void Player::RemoveBullet(Bullet* bullet)
+{
+	_bullets.remove(bullet);
+}

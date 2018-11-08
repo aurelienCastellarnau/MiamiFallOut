@@ -119,6 +119,9 @@ void GameManager::GameLoop() {
 		_tm = new TimeManager();;
 		_tm->Start();
 		int count = 0;
+		int frames_update = 0;
+		// set the probabilities for enemy to pop
+		int pop_boundary = 1;
 
 		while (window_ptr->isOpen() && !_score_manager->GetEndCondition())
 		{
@@ -126,8 +129,19 @@ void GameManager::GameLoop() {
 				MenuLoop(window_ptr, true);
 			_tm->Update();
 			if (player != NULL && _tm->GetStartedTime() > ELAPSED_TIME_FPS) {
+				// 100 FPS, toute les 30 secondes, on augmente les chances de pop
+				if (frames_update == 3000)
+				{
+					frames_update = 0;
+					pop_boundary++;
+					if (pop_boundary > 100)
+					{
+						pop_boundary = 100;
+					}
+				}
+				frames_update++;
 				int pop = GetRandomInt(1, 100);
-				if (pop == 42)
+				if (pop > 0 && pop <= pop_boundary)
 				{
 					Enemy* new_ennemi = dynamic_cast<Enemy*>(factory->Create("Enemy"));
 					new_ennemi->AddObserver(_scene);

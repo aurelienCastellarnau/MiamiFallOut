@@ -76,7 +76,6 @@ void ScoreManager::Update()
 		if (it->isPlayer())
 		{
  			Player* player = dynamic_cast<Player*>(it);
-			std::list<Bullet*>bullets = player->GetBullets();
 			sf::Shape* shape1 = it->GetShape();
 			sf::FloatRect bounds1 = shape1->getGlobalBounds();
 			for (ShapeEntity* const& in_it : _entities)
@@ -85,8 +84,9 @@ void ScoreManager::Update()
 				sf::FloatRect bounds2 = shape2->getGlobalBounds();
 				if (!in_it->isPlayer())
 				{
-					for (ShapeEntity* const& it_bullet : bullets)
+					for (ShapeEntity* it_bullet : player->GetBullets())
 					{
+						Bullet* bullet = dynamic_cast<Bullet*>(it_bullet);
 						sf::Shape* bullet_shape = it_bullet->GetShape();
 						sf::FloatRect bullet_bound = bullet_shape->getGlobalBounds();
 						if (bullet_bound.intersects(bounds2))
@@ -94,6 +94,8 @@ void ScoreManager::Update()
 							_score++;
 							_hit++;
 							in_it->SetIntersect(true);
+							player->RemoveBullet(bullet);
+							delete it_bullet;
 						}
 					}
 				}
