@@ -78,6 +78,11 @@ void Player::Move()
 	this->MovePlayerBullets();
 }
 
+int Player::GetBulletSize() const
+{
+	return _bullets.size();
+}
+
 void Player::MovePlayerBullets() {
 	if (this->_bullets.size() > 0) {
 		for (std::list<Bullet*>::iterator bulletIterator = this->_bullets.begin(); bulletIterator != this->_bullets.end(); bulletIterator++) {
