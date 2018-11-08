@@ -4,6 +4,7 @@
 #include "IShapeManager.hh"
 #include "ShapeEntity.hh"
 #include "IObserver.hh"
+#include "Player.hh"
 
 class ScoreManager: public IObserver, public IShapeManager
 {
@@ -12,6 +13,7 @@ public:
 	ScoreManager(sf::RenderWindow*);
 
 	std::list<ShapeEntity*> GetEntities() const;
+	Player* GetPlayer() const;
 	void AddEntity(ShapeEntity* const entity);
 	void RemoveEntity(ShapeEntity* const entity);
 	void Update();

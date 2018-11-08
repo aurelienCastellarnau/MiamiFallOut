@@ -29,6 +29,19 @@ std::list<ShapeEntity*> ScoreManager::GetEntities() const
 	return _entities;
 }
 
+Player* ScoreManager::GetPlayer() const
+{
+	for (ShapeEntity* it : _entities)
+	{
+		if (it->isPlayer())
+		{
+			Player* player = dynamic_cast<Player*>(it);
+			return player;
+		}
+	}
+	return NULL;
+}
+
 int ScoreManager::GetScore() const
 {
 	return _score;
@@ -71,39 +84,41 @@ void ScoreManager::RemoveEntity(ShapeEntity* const entity)
 
 void ScoreManager::Update()
 {
-	for (ShapeEntity* const& it : _entities)
+	// on compare les entités pour évaluer la scene
+	// on agit une fois, en partant du player
+ 	Player* player = GetPlayer();
+	if (player == NULL)
 	{
-		if (it->isPlayer())
+		return;
+	}
+	sf::Shape* shape_player = player->GetShape();
+	sf::FloatRect bounds_player = shape_player->getGlobalBounds();
+	// on itère sur toute les entités du score_manager
+	for (ShapeEntity* const& in_it : _entities)
+	{
+		// si c'est un ennemi
+		if (!in_it->isPlayer())
 		{
- 			Player* player = dynamic_cast<Player*>(it);
-			sf::Shape* shape1 = it->GetShape();
-			sf::FloatRect bounds1 = shape1->getGlobalBounds();
-			for (ShapeEntity* const& in_it : _entities)
+			// on extrait sa forme et ses bordures
+			sf::Shape* shape_enemy = in_it->GetShape();
+			sf::FloatRect bounds_enemy = shape_enemy->getGlobalBounds();
+			// on vérifie si une balle l'a touché
+			for (ShapeEntity* it_bullet : player->GetBullets())
 			{
-				sf::Shape* shape2 = in_it->GetShape();
-				sf::FloatRect bounds2 = shape2->getGlobalBounds();
-				if (!in_it->isPlayer())
+				Bullet* bullet = dynamic_cast<Bullet*>(it_bullet);
+				sf::Shape* bullet_shape = it_bullet->GetShape();
+				sf::FloatRect bullet_bound = bullet_shape->getGlobalBounds();
+				if (bullet_bound.intersects(bounds_enemy))
 				{
-					for (ShapeEntity* it_bullet : player->GetBullets())
-					{
-						Bullet* bullet = dynamic_cast<Bullet*>(it_bullet);
-						sf::Shape* bullet_shape = it_bullet->GetShape();
-						sf::FloatRect bullet_bound = bullet_shape->getGlobalBounds();
-						if (bullet_bound.intersects(bounds2))
-						{
-							_score++;
-							_hit++;
-							in_it->SetIntersect(true);
-							player->RemoveBullet(bullet);
-							delete it_bullet;
-						}
-					}
+					_score++;
+					_hit++;
+					in_it->SetIntersect(true);
+					player->RemoveBullet(bullet);
+					delete it_bullet;
 				}
-				if (it != in_it) {
-					if (bounds1.intersects(bounds2)) {
-						it->SetIntersect(true);
-					}
-				}
+			}
+			if (bounds_player.intersects(bounds_enemy)) {
+				player->SetIntersect(true);
 			}
 		}
 	}

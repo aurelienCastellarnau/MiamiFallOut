@@ -151,7 +151,6 @@ void GameManager::GameLoop() {
 				window_ptr->clear();
 				_scene->buildBackround();
 				_scene->Update();
-				_score_manager->Update();
 				Player* player = GetPlayer();
 				if (player != NULL && player->IsCatched())
 				{
@@ -188,6 +187,7 @@ void GameManager::GameLoop() {
 					_textFPS.setString(stringFPS);
 					count = 0;
 				}
+				_score_manager->Update();
 				score_str = "Score: " + std::to_string(_score_manager->GetScore()) + " shots";
 				_textScore.setString(score_str);
 				window_ptr->draw(_textScore);
