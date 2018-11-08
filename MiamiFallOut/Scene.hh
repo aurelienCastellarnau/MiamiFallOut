@@ -1,6 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "ShapeEntity.hh"
+#include "Player.hh"
 #include "IShapeManager.hh"
 #include "IObserver.hh"
 
@@ -13,6 +14,7 @@ public:
 	Scene(sf::RenderWindow*);
 	
 	std::list<ShapeEntity*> GetEntities() const;
+	Player* GetPlayer() const;
 	void AddEntity(ShapeEntity* const entity);
 	void RemoveEntity(ShapeEntity* const entity);
 	void Update();
